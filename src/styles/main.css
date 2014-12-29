@@ -1,0 +1,49 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+[drawer] {
+  background: #eeeeee;
+  color: #0c98c6
+}
+
+[main] {
+  background: #fafafa;
+}
+
+core-toolbar, paper-fab {
+  background: #0c98c6;
+  color: #fafafa
+}
+
+core-submenu::shadow #submenu {
+  margin-left: 1em;
+}
+
+core-drawer-panel:not([narrow]) #navicon {
+  display: none;
+}
+
+.content > paper-shadow {
+  margin: 0.5em;
+  padding: 0.5em;
+}
+
+.content paper-icon-button, paper-icon-button::shadow #ripple, paper-button::shadow #ripple {
+  color: #0c98c6;
+}
+
+core-collapse > div {
+  margin: 0.2em;
+}
+
+.settings > div > * {
+
+}
+
+paper-fab {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+}

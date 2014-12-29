@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>mind JS</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild-->
+
+  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+  <!-- build:vulcanized elements/elements.vulcanized.html -->
+  <link rel="import" href="bower_components/core-elements/core-elements.html">
+  <link rel="import" href="bower_components/paper-elements/paper-elements.html">
+  <link rel="import" href="bower_components/core-icons/device-icons.html">
+  <link rel="import" href="elements/elements.html">
+  <!-- endbuild-->
+</head>
+
+<body unresolved fullbleed>
+
+<template id="auto-binding-template" is="auto-binding" bind="{{data}}">
+  <core-drawer-panel id="drawer-panel" drawerWidth="12em">
+    <core-header-panel drawer>
+      <core-toolbar>Menu</core-toolbar>
+      <core-menu selected="0" selectedItem="{{menuItem}}" selectedIndex="{{menuIndex}}">
+        <core-item icon="explore" label="My Mindmaps"></core-item>
+        <core-item icon="settings-applications" label="General settings"></core-item>
+        <core-item icon="device:storage" label="Storage settings"></core-item>
+      </core-menu>
+    </core-header-panel>
+    <core-header-panel main mode="waterfall">
+      <core-toolbar>
+        <paper-icon-button id="navicon" icon="menu"></paper-icon-button>
+        <div flex>{{menuItem.label}}</div>
+        <paper-icon-button icon="search"></paper-icon-button>
+      </core-toolbar>
+      <core-pages selected="{{menuIndex}}">
+        <section class="content">
+          <template repeat="{{data}}"  id="mindmap-list-template">
+            <paper-shadow layout vertical>
+              <paper-button self-start>{{value}}</paper-button>
+              <core-collapse>
+                <div>details...</div>
+                <div>creation date:</div>
+                <div>last modification:</div>
+                <div layout horizontal center-justified>
+                  <paper-icon-button icon="visibility"></paper-icon-button>
+                  <paper-icon-button icon="file-download"></paper-icon-button>
+                  <paper-icon-button icon="create"></paper-icon-button>
+                  <paper-icon-button icon="delete"></paper-icon-button>
+                </div>
+              </core-collapse>
+            </paper-shadow>
+          </template>
+          <paper-fab icon="add"></paper-fab>
+        </section>
+        <section class="content settings"><!--General settings-->
+          <paper-shadow layout vertical>
+            <div layout vertical>
+              Test setting
+              <paper-input id="g-1" label="Text input" floatinglabel></paper-input>
+            </div>
+          </paper-shadow>
+        </section>
+        <section><!--Storage settings-->
+          <form>
+            
+          </form>
+        </section>
+      </core-pages>
+    </core-header-panel>
+  </core-drawer-panel>
+  </template>
+  <!-- build:js scripts/app.js -->
+  <script src="scripts/app.js"></script>
+  <!-- endbuild-->
+</body>
+
+</html>
+
