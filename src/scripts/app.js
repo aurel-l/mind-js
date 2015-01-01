@@ -1,29 +1,28 @@
-(function(document) {
+((document) => {
   'use strict';
-
-  document.getElementById('auto-binding-template').addEventListener('template-bound', function() {
-    // Perform some behaviour
-    console.log('Polymer is ready to rock!');
-
+  let t = document.getElementById('auto-binding-template');
+  t.addEventListener('template-bound', () => {
     // Mindmap list
-    var mindmapListTmpl = document.getElementById('mindmap-list-template');
-    mindmapListTmpl.model = {
-      data: new Array(100)
-    };
-    for (var i = 0; i < 100; i++) {
-      mindmapListTmpl.model.data[i] = {value: 'Mindmap n°' + i};
+    /*t.list = new Array(25);
+    for (let i = 0; i < 25; i++) {
+      t.list[i] = {
+        name: `Mindmap n°${i + 1}`,
+        date: {
+          created: new Date(Date.now() - (Math.round(Math.random() * Math.pow(10, 10)))).toISOString(),
+          changed: new Date(Date.now() - (Math.round(Math.random() * Math.pow(10, 8)))).toISOString()
+        }
+      };
     }
-    mindmapListTmpl.parentElement.addEventListener('click', function(e) {
+    t.$['drawer-panel'].addEventListener('core-select', e => {
+      if ('setZ' in e.detail.item) {
+        e.detail.item.setZ(e.detail.isSelected ? 3 : 1);
+      }
+    });*/
+    /*mindmapListTmpl.parentElement.addEventListener('click', (e) => {
       if (e.target.tagName === 'PAPER-BUTTON') {
         e.target.nextElementSibling.toggle();
       }
-    });
-
-    var navicon = document.getElementById('navicon');
-    var drawerPanel = document.getElementById('drawer-panel');
-    navicon.addEventListener('click', function() {
-      drawerPanel.togglePanel();
-    });
+    });*/
   });
 
 // wrap document so it plays nice with other libraries

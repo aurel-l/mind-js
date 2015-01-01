@@ -1,0 +1,27 @@
+<!doctype html>
+<link rel="import" href="../bower_components/core-style/core-style.html">
+
+<script>
+  CoreStyle.g.theme = {
+    hueOne: 200,
+  }
+</script>
+
+<core-style id="main">
+  paper-fab,
+  :host /deep/ core-toolbar,
+  paper-toggle-button /deep/ #onRadio,
+  paper-toggle-button::shadow #toggleBar[checked],
+  paper-input /deep/ .focused-underline {
+    color: #eee;
+    background: hsl({{g.theme.hueOne}}, 80%, 40%);
+  }
+
+  core-item, paper-icon-button {
+    color: hsl({{g.theme.hueOne}}, 100%, 30%);
+  }
+
+  paper-checkbox::shadow #checkbox.checked {
+    border-color: hsl({{g.theme.hueOne}}, 80%, 40%);
+  }
+</core-style>

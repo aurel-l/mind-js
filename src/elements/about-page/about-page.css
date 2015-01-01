@@ -1,0 +1,12 @@
+paper-shadow {
+  margin: 1em;
+  padding: 1em;
+}
+
+h1 {
+  margin: 0;
+}
+
+paper-shadow > div {
+  margin: 2em 0 0 0;
+}

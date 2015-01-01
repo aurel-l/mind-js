@@ -5,4 +5,5 @@ src/bower_components
 .tmp
 test/bower_components/
 .recognizer/
+browsers.json
 

@@ -1,31 +1,31 @@
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
   color: #333;
-}
-
-[drawer] {
-  background: #eeeeee;
-  color: #0c98c6
-}
-
-[main] {
-  background: #fafafa;
-}
-
-core-toolbar, paper-fab {
-  background: #0c98c6;
-  color: #fafafa
-}
-
-core-submenu::shadow #submenu {
-  margin-left: 1em;
 }
 
 core-drawer-panel:not([narrow]) #navicon {
   display: none;
 }
 
-.content > paper-shadow {
+core-header-panel[drawer] {
+  box-shadow: 1px 0 1px rgba(0, 0, 0, 0.1);
+}
+
+core-pages > section {
+  overflow-y: auto
+}
+
+core-selector > paper-shadow {
+  margin: 1em;
+  padding: 1em;
+}
+
+/*core-toolbar, paper-fab {
+  background: #0c98c6;
+  color: #fafafa
+}
+
+.content paper-shadow {
   margin: 0.5em;
   padding: 0.5em;
 }
@@ -36,14 +36,10 @@ core-drawer-panel:not([narrow]) #navicon {
 
 core-collapse > div {
   margin: 0.2em;
-}
-
-.settings > div > * {
-
-}
+}*/
 
 paper-fab {
   position: fixed;
-  bottom: 1em;
-  right: 1em;
+  bottom: 1.5em;
+  right: 1.5em;
 }

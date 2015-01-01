@@ -1,0 +1,10 @@
+paper-shadow {
+  margin: 1em;
+  padding: 1em;
+}
+
+paper-fab {
+  position: fixed;
+  bottom: 1.5em;
+  right: 1.5em;
+}

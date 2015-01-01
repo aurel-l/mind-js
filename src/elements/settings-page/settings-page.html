@@ -1,0 +1,54 @@
+<!doctype html>
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../scaffold-layout/scaffold-layout.html">
+<link rel="import" href="../../styles/theme.html">
+
+<polymer-element name="settings-page" noscript>
+  <template>
+    <core-style ref="main"></core-style>
+    <link rel="stylesheet" href="settings-page.css">
+    <scaffold-layout selected="Settings">
+      <div class="title">Settings</div>
+
+      <section cross-fade>
+        <paper-shadow>
+          <h1>Advanced Settings</h1>
+          <div layout vertical>
+            <div layout horizontal center>
+              <div flex>Advanced settings {{a0 ? 'enabled' : 'disabled'}}</div>
+              <paper-toggle-button checked="{{a0}}"></paper-toggle-button>
+            </div>
+          </div>
+        </paper-shadow>
+        <paper-shadow>
+          <h1>General Settings</h1>
+          <div layout vertical>
+            Test setting 1
+            <paper-input label="Text input" floatinglabel></paper-input>
+          </div>
+          <div layout vertical>
+            Test setting 2
+            <paper-input label="Text input" floatinglabel></paper-input>
+          </div>
+          <core-collapse opened="{{a0}}">
+            <div layout vertical>
+              Hidden test setting 3
+              <paper-input label="Hidden input" floatinglabel></paper-input>
+            </div>
+          </core-collapse>
+        </paper-shadow>
+        <paper-shadow>
+          <h1>Storage Settings</h1>
+          <div layout vertical>
+            <div>Test setting 1</div>
+            <paper-checkbox label="Checkbox input" floatinglabel></paper-checkbox>
+          </div>
+          <div layout vertical>
+            <div>Test setting 2</div>
+            <paper-checkbox label="Checkbox input" floatinglabel></paper-checkbox>
+          </div>
+        </paper-shadow>
+      </section>
+    </scaffold-layout>
+  </template>
+</polymer-element>

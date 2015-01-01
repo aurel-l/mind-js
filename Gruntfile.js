@@ -17,6 +17,8 @@ module.exports = function (grunt) {
   // load all grunt tasks
   require('load-grunt-tasks')(grunt);
 
+  var browsers = grunt.file.readJSON('browsers.json');
+
   grunt.initConfig({
     watch: {
       options: {
@@ -28,35 +30,54 @@ module.exports = function (grunt) {
           livereload: true
         },
         files: [
-          'src/*.html',
-          'src/elements/{,*/}*.html',
-          '{.tmp,src}/elements/{,*/}*.css',
-          '{.tmp,src}/styles/{,*/}*.css',
-          '{.tmp,src}/scripts/{,*/}*.js',
-          'src/images/{,*/}*.{png,jpg,jpeg,gif,webp}'
+          'src/**/*.html',
+          '{.tmp,src}/**/*.css',
+          '{.tmp,src}/**/*.js',
+          'src/images/**/*.{png,jpg,jpeg,gif,webp}'
         ]
       },
-      js: {
-        files: ['src/scripts/{,*/}*.js'],
-        tasks: ['jshint']
+      css: {
+        files: ['src/**/*.css'],
+        tasks: ['csslint', 'autoprefixer']
       },
-      styles: {
-        files: [
-          'src/styles/{,*/}*.css',
-          'src/elements/{,*/}*.css'
-        ],
-        tasks: ['copy:styles', 'autoprefixer:server']
+      hmtl: {
+        files: ['src/**/*.html'],
+        tasks: ['htmlhint']
+      },
+      js: {
+        files: ['src/**/*.js'],
+        tasks: ['jshint', '6to5']
+      }
+    },
+    '6to5': {
+      options: {
+        sourceMap: true,
+        experimental: true
+      },
+      default: {
+        files: [{
+          expand: true,
+          cwd: 'src',
+          src: [
+            '**/*.js',
+            '!bower_components/**/*'
+          ],
+          dest: '.tmp'
+        }]
       }
     },
     autoprefixer: {
       options: {
         browsers: ['last 2 versions']
       },
-      server: {
+      dev: {
         files: [{
           expand: true,
-          cwd: '.tmp',
-          src: '**/*.css',
+          cwd: 'src',
+          src: [
+            '**/*.css',
+            '!bower_components/**/*'
+          ],
           dest: '.tmp'
         }]
       },
@@ -64,7 +85,10 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: 'dist',
-          src: ['**/*.css', '!bower_components/**/*.css'],
+          src: [
+            '**/*.css',
+            '!bower_components/**/*'
+          ],
           dest: 'dist'
         }]
       }
@@ -109,20 +133,43 @@ module.exports = function (grunt) {
         }
       }
     },
-    open: {
-      server: {
-        path: 'http://localhost:<%= connect.options.port %>'
-      }
-    },
+    open: browsers.filter(function (b) {
+      return b.use;
+    }).map(function(b) {
+      return {
+        path: 'http://localhost:<%= connect.options.port %>',
+        app: b.cmd
+      };
+    }),
     clean: {
       dist: ['.tmp', 'dist/*'],
       server: '.tmp'
     },
     jshint: {
+      options: {
+        jshintrc: true
+      },
       all: [
-        'src/scripts/{,*/}*.js',
-        '!src/scripts/vendor/*',
-        'test/spec/{,*/}*.js'
+        'src/**/*.js',
+        '!src/bower_components/**/*'
+      ]
+    },
+    htmlhint: {
+      options: {
+        htmlhintrc: '.htmlhintrc'
+      },
+      all: [
+        'src/**/*.html',
+        '!src/bower_components/**/*'
+      ]
+    },
+    csslint: {
+      options: {
+        csslintrc: '.csslintrc'
+      },
+      all: [
+        'src/**/*.css',
+        '!src/bower_components/**/*'
       ]
     },
     useminPrepare: {
@@ -196,6 +243,19 @@ module.exports = function (grunt) {
         }]
       }
     },
+    uglify: {
+      all: {
+        files: [{
+          expand: true,
+          cwd: '.tmp',
+          src: [
+            '**/*.js',
+            '!bower_components/**/*'
+          ],
+          dest: 'dist'
+        }]
+      }
+    },
     copy: {
       dist: {
         files: [{
@@ -212,32 +272,21 @@ module.exports = function (grunt) {
             'bower_components/**'
           ]
         }]
-      },
-      styles: {
-        files: [{
-          expand: true,
-          cwd: 'src',
-          dest: '.tmp',
-          src: ['{styles,elements}/{,*/}*.css']
-        }]
       }
     }
   });
 
-  grunt.registerTask('serve', function (target) {
-    if (target === 'dist') {
-      return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
-    }
-
-    grunt.task.run([
-      'clean:server',
-      'copy:styles',
-      'autoprefixer:server',
-      'connect:livereload',
-      'open',
-      'watch'
-    ]);
-  });
+  grunt.registerTask('dev', [
+    'clean:server',
+    'htmlhint',
+    'jshint',
+    'csslint',
+    'autoprefixer',
+    '6to5',
+    'connect:livereload',
+    'open',
+    'watch'
+  ]);
 
   grunt.registerTask('test', [
     'clean:server',
@@ -246,11 +295,13 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'copy',
+    'htmlhint',
+    'jshint',
+    'csslint',
+    'autoprefixer',
     'useminPrepare',
     'imagemin',
-    'concat',
-    'autoprefixer',
+    '6to5',
     'uglify',
     'cssmin',
     'vulcanize',
@@ -258,9 +309,5 @@ module.exports = function (grunt) {
     'minifyHtml'
   ]);
 
-  grunt.registerTask('default', [
-    'jshint',
-    'test',
-    'build'
-  ]);
+  grunt.registerTask('default', ['dev']);
 };
