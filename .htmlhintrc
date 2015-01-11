@@ -11,5 +11,6 @@
   "img-alt-require": true,
   "doctype-html5": true,
   "id-class-value": "dash",
-  "space-tab-mixed-disabled": true
+  "space-tab-mixed-disabled": true,
+  "spec-char-escape": false
 }

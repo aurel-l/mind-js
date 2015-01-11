@@ -14,6 +14,9 @@
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild-->
 
+  <script src="bower_components/regenerator/runtime/min.js"></script>
+  <script src="bower_components/requirejs/require.js"></script>
+
   <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
   <!-- build:vulcanized elements/elements.vulcanized.html -->
   <link rel="import" href="bower_components/app-router/app-router.html">
@@ -26,7 +29,8 @@
     <app-route path="/" element="list-page"></app-route>
     <app-route path="/settings" element="settings-page"></app-route>
     <app-route path="/about" element="about-page"></app-route>
-    <app-route path="/mindmap/:id" element="mindmap-page"></app-route>
+    <app-route path="/mindmap" element="mindmap-page"></app-route>
+    <app-route path="/mindmap/:key" element="mindmap-page"></app-route>
     <!-- remove comment only in the end to detect routing errors during dev
     <app-route path="*" redirect="/"></app-route>-->
   </app-router>

@@ -6,12 +6,11 @@
 <polymer-element name="settings-page" noscript>
   <template>
     <core-style ref="main"></core-style>
-    <link rel="stylesheet" href="settings-page.css">
     <scaffold-layout selected="Settings">
       <div class="title">Settings</div>
 
       <section cross-fade>
-        <paper-shadow>
+        <paper-shadow class="card">
           <h1>Advanced Settings</h1>
           <div layout vertical>
             <div layout horizontal center>
@@ -20,7 +19,7 @@
             </div>
           </div>
         </paper-shadow>
-        <paper-shadow>
+        <paper-shadow class="card">
           <h1>General Settings</h1>
           <div layout vertical>
             Test setting 1
@@ -37,7 +36,7 @@
             </div>
           </core-collapse>
         </paper-shadow>
-        <paper-shadow>
+        <paper-shadow class="card">
           <h1>Storage Settings</h1>
           <div layout vertical>
             <div>Test setting 1</div>

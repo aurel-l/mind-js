@@ -1,9 +1,13 @@
 <!doctype html>
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<polymer-element name="mindmap-element" attributes="">
+<polymer-element name="mindmap-element" attributes="key">
   <template>
     <link rel="stylesheet" href="mindmap-element.css">
+    <section fit style="background: red;">
+      key: {{key}}
+    </section>
+    <aside style="position: absolute; right: 0;">inner menu</aside>
   </template>
   <script src="mindmap-element.js"></script>
 </polymer-element>

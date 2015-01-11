@@ -9,39 +9,44 @@
 <polymer-element name="list-page">
   <template>
     <core-style ref="main"></core-style>
-    <link rel="stylesheet" href="list-page.css">
     <scaffold-layout selected="My Mindmaps" fit>
       <div class="title">My Mindmaps</div>
 
-      <core-selector id="mindmap-list" flex selected="-1" selectedIndex="{{mindmapIndex}}" cross-fade>
-        <template repeat="{{mindmap, i in list}}">
-          <paper-shadow layout vertical>
-            <div self-start>{{mindmap.name}}</div>
-            <core-collapse opened="{{mindmapIndex === i}}">
-              <div>details...</div>
-              <div>
-                created
-                <time is="relative-time" datetime="{{mindmap.date.created}}">
-                  {{mindmap.date.created}}
-                </time>
-              </div>
-              <div>
-                last change
-                <time is="relative-time" datetime="{{mindmap.date.changed}}">
-                  {{mindmap.date.changed}}
-                </time>
-              </div>
-              <div layout horizontal center-justified>
-                <paper-icon-button icon="visibility"></paper-icon-button>
-                <paper-icon-button icon="file-download"></paper-icon-button>
-                <paper-icon-button icon="create"></paper-icon-button>
-                <paper-icon-button icon="delete"></paper-icon-button>
-              </div>
-            </core-collapse>
-          </paper-shadow>
-        </template>
-      </core-selector>
-      <paper-fab icon="add"></paper-fab>
+      <section>
+        <core-selector id="mindmap-list" flex selected="-1" selectedIndex="{{mindmapIndex}}" cross-fade>
+          <template repeat="{{mindmap, i in list}}">
+            <paper-shadow layout vertical class="card">
+              <h1>{{mindmap.name}}</h1>
+              <core-collapse opened="{{mindmapIndex === i}}">
+                <div>details...</div>
+                <div>
+                  created
+                  <time is="relative-time" datetime="{{mindmap.date.created}}">
+                    {{mindmap.date.created}}
+                  </time>
+                </div>
+                <div>
+                  last change
+                  <time is="relative-time" datetime="{{mindmap.date.changed}}">
+                    {{mindmap.date.changed}}
+                  </time>
+                </div>
+                <div layout horizontal center-justified>
+                  <a href="/#/mindmap/{{mindmap.id}}">
+                    <paper-icon-button icon="visibility"></paper-icon-button>
+                  </a>
+                  <paper-icon-button icon="file-download"></paper-icon-button>
+                  <paper-icon-button icon="create"></paper-icon-button>
+                  <paper-icon-button icon="delete"></paper-icon-button>
+                </div>
+              </core-collapse>
+            </paper-shadow>
+          </template>
+        </core-selector>
+        <a href="/#/mindmap">
+          <paper-fab icon="add"></paper-fab>
+        </a>
+      </section>
     </scaffold-layout>
   </template>
   <script src="list-page.js"></script>

@@ -8,7 +8,10 @@
     "paper-elements": "Polymer/paper-elements#~0.5.2",
     "polymer": "Polymer/polymer#~0.5.2",
     "time-elements": "github/time-elements#~0.4.0",
-    "zip.js": "gildas-lormeau/zip.js#*"
+    "zip.js": "gildas-lormeau/zip.js#*",
+    "requirejs": "~2.1.15",
+    "regenerator": "~0.4.8",
+    "z-schema": "~3.3.1"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#~2.0.5"
