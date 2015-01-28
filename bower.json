@@ -9,7 +9,6 @@
     "polymer": "Polymer/polymer#~0.5.2",
     "time-elements": "github/time-elements#~0.4.0",
     "zip.js": "gildas-lormeau/zip.js#*",
-    "requirejs": "~2.1.15",
     "regenerator": "~0.4.8",
     "z-schema": "~3.3.1"
   },

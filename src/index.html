@@ -14,9 +14,7 @@
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild-->
 
-  <script src="bower_components/localForage/dist/localforage.js"></script>
   <script src="bower_components/regenerator/runtime/min.js"></script>
-  <script src="bower_components/requirejs/require.js"></script>
 
   <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
   <!-- build:vulcanized elements/elements.vulcanized.html -->
@@ -28,18 +26,29 @@
 <body unresolved>
   <template is="auto-binding">
     <mindmap-manager list="{{list}}" active="{{active}}"></mindmap-manager>
-    <app-router mode="hash" trailingSlash="ignore" core-animated-pages transitions="cross-fade" bindRouter>
+    <app-router mode="hash" trailingSlash="ignore" bindRouter core-animated-pages transitions="cross-fade">
       <app-route path="/">
         <template>
           <list-page list="{{router.templateInstance.model.list}}"></list-page>
         </template>
       </app-route>
-      <app-route path="/settings" element="settings-page"></app-route>
+      <app-route path="/settings">
+        <template>
+          <settings-page settings="{{router.templateInstance.model.settings}}"></settings-page>
+        </template>
+      </app-route>
       <app-route path="/about" element="about-page"></app-route>
-      <app-route path="/mindmap" element="mindmap-page"></app-route>
-      <app-route path="/mindmap/:key" element="mindmap-page"></app-route>
-      <!-- remove comment only in the end to detect routing errors during dev
-      <app-route path="*" redirect="/"></app-route>-->
+      <app-route path="/mindmap" element="mindmap-page">
+        <template>
+          <mindmap-page settings="{{router.templateInstance.model.settings}}"></mindmap-page>
+        </template>
+      </app-route>
+      <app-route path="/mindmap/:key" element="mindmap-page">
+        <template>
+          <mindmap-page settings="{{router.templateInstance.model.settings}}"></mindmap-page>
+        </template>
+      </app-route>
+      <app-route path="*" redirect="/"></app-route>
     </app-router>
   </template>
     <!-- build:js scripts/app.js -->

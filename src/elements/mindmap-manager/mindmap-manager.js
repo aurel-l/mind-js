@@ -1,3 +1,4 @@
+/* global localforage: false */
 (function() {
   'use strict';
   class Content {
@@ -25,6 +26,7 @@
       this.nodes = new Set([root]);
     }
   }
+
   var list = new Array(25);
   for (let i = 0; i < 25; i++) {
     list[i] = {
@@ -61,9 +63,7 @@
         console.log('db error');
       });
     },
-    publish: {
-      list: list,
-      active: null
-    }
+    list: list,
+    active: null
   });
 })();

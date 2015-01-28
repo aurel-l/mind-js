@@ -17,10 +17,9 @@
   "trailing":  true,
   "newcap": false,
   "globals": {
-    "wrap": true,
-    "unwrap": true,
-    "Polymer": true,
-    "Platform": true,
-    "localforage": true
+    "wrap": false,
+    "unwrap": false,
+    "Polymer": false,
+    "Platform": false
   }
 }
