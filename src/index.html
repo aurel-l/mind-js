@@ -26,17 +26,24 @@
 </head>
 
 <body unresolved>
-  <app-router mode="hash" trailingSlash="ignore"  core-animated-pages transitions="cross-fade">
-    <app-route path="/" element="list-page"></app-route>
-    <app-route path="/settings" element="settings-page"></app-route>
-    <app-route path="/about" element="about-page"></app-route>
-    <app-route path="/mindmap" element="mindmap-page"></app-route>
-    <app-route path="/mindmap/:key" element="mindmap-page"></app-route>
-    <!-- remove comment only in the end to detect routing errors during dev
-    <app-route path="*" redirect="/"></app-route>-->
-  </app-router>
-  <!-- build:js scripts/app.js -->
-<!--  <script src="scripts/app.js"></script>-->
+  <template is="auto-binding">
+    <mindmap-manager list="{{list}}" active="{{active}}"></mindmap-manager>
+    <app-router mode="hash" trailingSlash="ignore" core-animated-pages transitions="cross-fade" bindRouter>
+      <app-route path="/">
+        <template>
+          <list-page list="{{router.templateInstance.model.list}}"></list-page>
+        </template>
+      </app-route>
+      <app-route path="/settings" element="settings-page"></app-route>
+      <app-route path="/about" element="about-page"></app-route>
+      <app-route path="/mindmap" element="mindmap-page"></app-route>
+      <app-route path="/mindmap/:key" element="mindmap-page"></app-route>
+      <!-- remove comment only in the end to detect routing errors during dev
+      <app-route path="*" redirect="/"></app-route>-->
+    </app-router>
+  </template>
+    <!-- build:js scripts/app.js -->
+  <!--  <script src="scripts/app.js"></script>-->
   <!-- endbuild-->
 </body>
 
