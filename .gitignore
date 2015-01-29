@@ -5,5 +5,6 @@ src/bower_components
 .tmp
 test/bower_components/
 .recognizer/
+npm-debug.log
 browsers.json
 
