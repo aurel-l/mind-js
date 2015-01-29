@@ -23,7 +23,8 @@
           <h1>General Settings</h1>
           <div layout vertical>
             Test setting 1
-            <paper-input label="Text input" value="{{settings.text1}}" floatinglabel></paper-input>
+            <paper-input label="Text input" value="{{settings.general.text1}}" floatinglabel></paper-input>
+            <core-localstorage name="settings.general.text1" value="{{settings.general.text1}}"></core-localstorage>
           </div>
           <div layout vertical>
             Test setting 2
@@ -37,10 +38,11 @@
           </core-collapse>
         </paper-shadow>
         <paper-shadow class="card">
-          <h1>Mindmap Settings</h1>
+          <h1>Display Settings</h1>
           <div layout vertical>
-            Depth of the displayed mindmap
-            <paper-slider value="{{settings.mindmapDepth}}" min="2" max="10" step="1" snaps pin editable></paper-slider>
+            Maximum depth of the displayed mindmap
+            <paper-slider value="{{settings.display.depth}}" min="0" max="20" step="1" snaps pin editable></paper-slider>
+            <core-localstorage name="settings.display.depth" value="{{settings.display.depth}}"></core-localstorage>
           </div>
         </paper-shadow>
         <paper-shadow class="card">

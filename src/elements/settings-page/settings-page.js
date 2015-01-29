@@ -1,13 +1,13 @@
 (function() {
   'use strict';
   Polymer({
-    ready: function() {
-        this.settings = {
-            text1: localStorage.getItem('text1')
-        };
-    },
-    settingsChanged(oldValue, newValue) {
-      console.log(`settings changed from ${oldValue} to ${newValue}`);
+    settings: {
+      general: {
+        text1: 'default'
+      },
+      display: {
+        depth: 2
+      }
     }
   });
 })();
