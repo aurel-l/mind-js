@@ -21,13 +21,14 @@
       this.name = name;
       this.created = Date.now();
       this.lastModified = Date.now();
-      var root = new Node();
+      let root = new Node();
       this.root = root;
       this.nodes = new Set([root]);
     }
   }
 
-  var list = new Array(25);
+  /* placeholder */
+  let list = new Array(25);
   for (let i = 0; i < 25; i++) {
     list[i] = {
       name: `Mindmap n°${i + 1}`,
@@ -38,13 +39,28 @@
       }
     };
   }
-  var db = localforage;
+
+  let db = {
+    mm: localforage.createInstance({
+      name: 'mindmaps',
+      storeName: 'mindmaps'
+    }),
+    meta: localforage.createInstance({
+      name: 'metadata',
+      storeName: 'metadata'
+    }),
+    res: localforage.createInstance({
+      name: 'resources',
+      storeName: 'resources'
+    })
+  };
+
   Polymer({
     ready: function() {
       console.log('ready');
       console.log(this);
-      var p = db.getItem(this.getAttribute('key'));
-      p.then(function(mindmap) {
+      db.mm.getItem(this.getAttribute('key'))
+      .then(function(mindmap) {
         if (mindmap === null) {
           console.log('new mindmap');
           var fileImport = false;
