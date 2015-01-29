@@ -3,7 +3,7 @@
 <link rel="import" href="../scaffold-layout/scaffold-layout.html">
 <link rel="import" href="../../styles/theme.html">
 
-<polymer-element name="settings-page" noscript>
+<polymer-element name="settings-page" attributes="settings">
   <template>
     <core-style ref="main"></core-style>
     <scaffold-layout selected="Settings">
@@ -14,8 +14,8 @@
           <h1>Advanced Settings</h1>
           <div layout vertical>
             <div layout horizontal center>
-              <div flex>Advanced settings {{a0 ? 'enabled' : 'disabled'}}</div>
-              <paper-toggle-button checked="{{a0}}"></paper-toggle-button>
+              <div flex>Advanced settings {{advanced ? 'enabled' : 'disabled'}}</div>
+              <paper-toggle-button checked="{{advanced}}"></paper-toggle-button>
             </div>
           </div>
         </paper-shadow>
@@ -23,18 +23,25 @@
           <h1>General Settings</h1>
           <div layout vertical>
             Test setting 1
-            <paper-input label="Text input" floatinglabel></paper-input>
+            <paper-input label="Text input" value="{{settings.text1}}" floatinglabel></paper-input>
           </div>
           <div layout vertical>
             Test setting 2
             <paper-input label="Text input" floatinglabel></paper-input>
           </div>
-          <core-collapse opened="{{a0}}">
+          <core-collapse opened="{{advanced}}">
             <div layout vertical>
               Hidden test setting 3
               <paper-input label="Hidden input" floatinglabel></paper-input>
             </div>
           </core-collapse>
+        </paper-shadow>
+        <paper-shadow class="card">
+          <h1>Mindmap Settings</h1>
+          <div layout vertical>
+            Depth of the displayed mindmap
+            <paper-slider value="{{settings.mindmapDepth}}" min="2" max="10" step="1" snaps pin editable></paper-slider>
+          </div>
         </paper-shadow>
         <paper-shadow class="card">
           <h1>Storage Settings</h1>
@@ -50,4 +57,5 @@
       </section>
     </scaffold-layout>
   </template>
+  <script src="settings-page.js"></script>
 </polymer-element>
