@@ -2,28 +2,68 @@
 (function() {
   'use strict';
   class Content {
-    constructor() {
+    constructor(data) {
+      this.data = data;
+    }
 
+    get getContentAsync() {
+        return new Promise(() => {
+            return this.data;
+        });
+    }
+  }
+
+  class Text extends Content {
+    constructor (text) {
+        super(text);
     }
   }
 
   class Node {
-    constructor(title, parent=null) {
+    constructor(title, parent = null) {
       this.title = title;
       this.parent = parent;
       this.children = new Set();
-      this.content = new Content();
+      this._content = null;
+    }
+
+    get childCount() {
+      return this.children.size;
+    }
+
+    addChild(title = 'New node') {
+      let node = new Node(title, this);
+      this.children.add(node);
+      return node;
+    }
+
+    removeChild(node) {
+      this.children.delete(node);
+    }
+    
+    set content(data) {
+      if (typeof data === 'string') {
+        this._content = new Text(data);
+      } else {
+        console.warn('not (yet) a supported type');
+      }
+    }
+    
+    get content() {
+      return this._content;
     }
   }
 
   class Mindmap {
-    constructor(name) {
+    constructor(name = 'mindmap') {
       this.name = name;
       this.created = Date.now();
       this.lastModified = Date.now();
-      let root = new Node();
-      this.root = root;
-      this.nodes = new Set([root]);
+      this._root = new Node(name);
+    }
+
+    get root() {
+      return this._root;
     }
   }
 
@@ -69,14 +109,20 @@
           } else {
             console.log('creating mindmap from scratch');
             mindmap = new Mindmap();
+            mindmap.root.content = 'root content';
+            console.log(mindmap.root.childCount);
+            let node1 = mindmap.root.addChild();
+            let node2 = mindmap.root.addChild('node 2');
+            mindmap.root.removeChild(node1);
+            node2.content = 'content of node 2';
             console.log(mindmap);
           }
         } else {
           console.log(mindmap);
           //Affichage mindmap existante
         }
-      }).catch(function() {
-        console.log('db error');
+      }).catch(function(e) {
+        console.error(e);
       });
     },
     list: list,
