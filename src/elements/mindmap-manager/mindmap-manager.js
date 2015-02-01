@@ -1,71 +1,8 @@
 /* global localforage: false */
 (function() {
   'use strict';
-  class Content {
-    constructor(data) {
-      this.data = data;
-    }
 
-    get getContentAsync() {
-        return new Promise(() => {
-            return this.data;
-        });
-    }
-  }
-
-  class Text extends Content {
-    constructor (text) {
-        super(text);
-    }
-  }
-
-  class Node {
-    constructor(title, parent = null) {
-      this.title = title;
-      this.parent = parent;
-      this.children = new Set();
-      this._content = null;
-    }
-
-    get childCount() {
-      return this.children.size;
-    }
-
-    addChild(title = 'New node') {
-      let node = new Node(title, this);
-      this.children.add(node);
-      return node;
-    }
-
-    removeChild(node) {
-      this.children.delete(node);
-    }
-    
-    set content(data) {
-      if (typeof data === 'string') {
-        this._content = new Text(data);
-      } else {
-        console.warn('not (yet) a supported type');
-      }
-    }
-    
-    get content() {
-      return this._content;
-    }
-  }
-
-  class Mindmap {
-    constructor(name = 'mindmap') {
-      this.name = name;
-      this.created = Date.now();
-      this.lastModified = Date.now();
-      this._root = new Node(name);
-    }
-
-    get root() {
-      return this._root;
-    }
-  }
+  let Mindmap = document.currentScript.ownerDocument.module.classes.Mindmap;
 
   /* placeholder */
   let list = new Array(25);
@@ -88,10 +25,6 @@
     meta: localforage.createInstance({
       name: 'metadata',
       storeName: 'metadata'
-    }),
-    res: localforage.createInstance({
-      name: 'resources',
-      storeName: 'resources'
     })
   };
 
@@ -115,6 +48,8 @@
             let node2 = mindmap.root.addChild('node 2');
             mindmap.root.removeChild(node1);
             node2.content = 'content of node 2';
+            let node3 = node2.addChild('image node');
+            node3.content = new Blob(['inside the blob'], {type: 'image/png'});
             console.log(mindmap);
           }
         } else {
