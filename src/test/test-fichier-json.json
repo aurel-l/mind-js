@@ -1,0 +1,22 @@
+var mindmap ={
+    name = "mindmap",
+    root = {
+        title = "node_root",
+        content = "root content",
+        children = [
+            {
+            title = "node1",
+            content = "content of node 1",
+            children = [
+                title = "node1's son",
+                content = "content of node 1's son" 
+                }
+            ]    
+            },
+            {
+            title = "node2",
+            content = "content of node 2"    
+            }
+        ]    
+    }
+}
