@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>Mindmap Manager Basic</title>
+
+  <script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
+  <script src="../bower_components/web-component-tester/browser.js"></script>
+
+  <!-- Step 1: import the element to test -->
+  <link rel="import" href="../elements/mindmap-manager/mindmap-manager.html">
+
+</head>
+<body>
+
+  <mindmap-manager></mindmap-manager>
+  <script>
+    describe('Element', function() {
+      var el;
+
+      before(function() {
+        el = document.createElement('mindmap-manager');
+        document.body.appendChild(el);
+      });
+
+      after(function() {
+        document.body.removeChild(el);
+      });
+
+      it('should be registered', function() {
+        expect(el.constructor).to.equal(HTMLElement);
+      })
+
+      it.skip('should expose attributes', function() {
+        expect(el).to.have.property('list');
+        expect(Array.isArray(el.list)).to.be.true;
+        expect(el).to.have.property('active');
+      })
+    });
+  </script>
+
+</body>
+</html>

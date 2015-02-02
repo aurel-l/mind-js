@@ -117,6 +117,7 @@ module.exports = function (grunt) {
           },
           middleware: function (connect) {
             return [
+              mountFolder(connect, '.tmp'),
               mountFolder(connect, 'src')
             ];
           },
@@ -290,6 +291,11 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+    'htmlhint',
+    'jshint',
+    'csslint',
+    'autoprefixer',
+    '6to5',
     'connect:test'
   ]);
 

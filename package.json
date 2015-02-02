@@ -33,7 +33,7 @@
   "scripts": {
     "postinstall": "node_modules/.bin/bower install",
     "start": "node_modules/.bin/grunt",
-    "test": "",
+    "test": "node_modules/.bin/grunt test",
 
     "update": "npm update && node_modules/.bin/bower update",
     "build": ""

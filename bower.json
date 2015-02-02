@@ -13,6 +13,6 @@
     "z-schema": "~3.3.3"
   },
   "devDependencies": {
-    "web-component-tester": "Polymer/web-component-tester#~2.0.5"
+    "web-component-tester": "Polymer/web-component-tester#~2.1.3"
   }
 }
