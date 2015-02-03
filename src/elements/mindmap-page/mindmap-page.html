@@ -5,14 +5,14 @@
 <link rel="import" href="../scaffold-layout/scaffold-layout.html">
 <link rel="import" href="../../styles/theme.html">
 
-<polymer-element name="mindmap-page" attributes="key" noscript>
+<polymer-element name="mindmap-page" attributes="key list settings" noscript>
   <template>
     <core-style ref="main"></core-style>
     <scaffold-layout>
       <div class="title">Mindmap</div>
 
       <section cross-fade>
-        <mindmap-element fit key="{{key}}"></mindmap-element>
+        <mindmap-element fit key="{{key}}" list="{{list}}" settings="{{settings}}"></mindmap-element>
       </section>
     </scaffold-layout>
   </template>

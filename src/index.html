@@ -38,14 +38,14 @@
         </template>
       </app-route>
       <app-route path="/about" element="about-page"></app-route>
-      <app-route path="/mindmap" element="mindmap-page">
+      <app-route path="/mindmap">
         <template>
           <mindmap-page settings="{{router.templateInstance.model.settings}}"></mindmap-page>
         </template>
       </app-route>
-      <app-route path="/mindmap/:key" element="mindmap-page">
+      <app-route path="/mindmap/:key">
         <template>
-          <mindmap-page settings="{{router.templateInstance.model.settings}}"></mindmap-page>
+          <mindmap-page key="{{key}}" list="{{router.templateInstance.model.list}}" settings="{{router.templateInstance.model.settings}}"></mindmap-page>
         </template>
       </app-route>
       <app-route path="*" redirect="/"></app-route>

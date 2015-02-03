@@ -1,9 +1,12 @@
 (function() {
   'use strict';
   Polymer({
-    ready: function() {
-      console.log('ready');
-      console.log(this);
+    attached: function() {
+      if (this.list.some(el => el.key === this.key)) {
+        console.log('opening existing mindmap');
+      } else {
+        console.log('creating new mindmap');
+      }
     }
   });
 })();
