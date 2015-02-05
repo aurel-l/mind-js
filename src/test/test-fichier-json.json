@@ -1,22 +1,41 @@
-var mindmap ={
-    name = "mindmap",
-    root = {
-        title = "node_root",
-        content = "root content",
-        children = [
-            {
-            title = "node1",
-            content = "content of node 1",
-            children = [
-                title = "node1's son",
-                content = "content of node 1's son" 
-                }
-            ]    
-            },
-            {
-            title = "node2",
-            content = "content of node 2"    
-            }
-        ]    
-    }
+{
+  "name" : "mindmap",
+  "root" : {
+    "title" : "node_root",
+    "content" : {
+      "data" : "content of node root",
+      "typeContent" : "text"
+    },
+    "children" : [
+      {
+      "title" : "node 1",
+      "content" : {"data" : "content of node 1", "typeContent" : "image"},
+      "children" : [
+        {
+        "title" : "node 1.1",
+        "content" : {"data" : "content of node 1.1", "typeContent" : "text"}
+        },
+        {
+        "title" : "node 1.2",
+        "content" : {"data" : "content of node 1.2", "typeContent" : "text"},
+        "children" : [
+          {
+          "title" : "node 1.2.1",
+          "content" : {"data" : "content of node 1", "typeContent" : "video"}
+          },
+          {
+          "title" : "node 1.2.2",
+          "content" : {"data" : "content of node 1.2.2", "typeContent" : "url"}
+          }
+        ]
+        }
+      ]
+      },
+      {
+      "title" : "node 2",
+      "content" : {"data" : "content of node 2", "typeContent" : "text"},
+      "children" : []
+      }
+    ]
+  }
 }
