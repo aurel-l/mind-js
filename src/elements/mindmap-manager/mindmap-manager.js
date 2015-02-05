@@ -46,7 +46,7 @@
             console.log(mindmap.root.childCount);
             let node1 = mindmap.root.addChild();
             let node2 = mindmap.root.addChild('node 2');
-            mindmap.root.removeChild(node1);
+            node1.delete();
             node2.content = 'content of node 2';
             let node3 = node2.addChild('image node');
             node3.content = new Blob(['inside the blob'], {type: 'image/png'});

@@ -14,15 +14,17 @@
   let p = Symbol('Private');
 
   class Content {
-    constructor(data) {
+    constructor(data = null) {
       this[p] = new Map();
       this[p].set('data', data);
     }
 
-    get dataAsync() {
-      return new Promise(function(resolve) {
-        resolve(this[p].get('data'));
-      });
+    get data() {
+      return new Promise(resolve => resolve(this[p].get('data')));
+    }
+
+    delete() {
+      return new Promise(resolve => resolve());
     }
   }
 
@@ -41,8 +43,12 @@
       });
     }
 
-    get dataAsync() {
+    get data() {
       return resourcesDB.getItem(this[p].get('data'));
+    }
+
+    delete() {
+      return resourcesDB.removeItem(this[p].get('data'));
     }
   }
 
@@ -52,7 +58,7 @@
       this[p].set('title', title);
       this[p].set('parent', parent);
       this[p].set('children', new Set());
-      this[p].set('content', null);
+      this[p].set('content', new Content());
     }
 
     get childCount() {
@@ -65,17 +71,27 @@
       return node;
     }
 
-    removeChild(node, recursive = true) {
+    delete(recursive = true) {
+      console.log('deleting');
       if (recursive) {
+        let promises = [];
         for (let child of this[p].get('children')) {
-          for (let grandChild of child[p].get('children')) {
-            child.removeChild(grandChild, true);
-          }
+          promises.push(child.delete());
         }
+        console.log(promises);
+        return Promise.all(promises).then(() => {
+          this[p].get('parent')[p].get('children').delete(this);
+          return this[p].get('content').delete();
+        });
       } else {
-        //reassign children of child to `this`
+        let parent = this[p].get('parent');
+        this[p].get('children').forEach(child => {
+          child[p].set('parent', parent);
+          parent[p].get('children').add(child);
+        });
+        parent[p].get('children').delete(this);
+        return this[p].get('content').delete();
       }
-      this[p].get('children').delete(node);
     }
 
     set content(data) {
