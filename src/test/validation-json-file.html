@@ -1,12 +1,35 @@
 <!doctype html>
 
-<script src="../bower_components/z-schema/dist/ZSchema-brower-min.js"></script>
+<script src="../bower_components/fetch/fetch.js"></script>
+<script src="../bower_components/z-schema/dist/ZSchema-browser-min.js"></script>
 
 <script>
-  var ZSchema = require("ZSchema");
   var validator = new ZSchema();
-  var json = {"$ref": "test-fichier-json.json"};
-  var schema = { "$ref": "schema" };
-  var valid = validator.validate(json, schema);
-  console.log(valid);
+  var urls = ['schema', 'test-fichier-json.json'];
+  Promise.all(
+    urls.map(function(url) {
+      return fetch(url);
+    })
+  ).then(function(responses) {
+    return Promise.all(
+      responses.map(function(response) {
+        return response.json();
+      })
+    );
+  }).then(function(parsed) {
+    console.log(parsed);
+    valid = validator.validate(parsed[0], parsed[1]);
+    if (!valid) {
+      throw validator.getLastErrors();
+    } else {
+      return valid;
+    }
+  }).then(function() {
+    console.log('valid json file');
+  }, function(err) {
+    console.error('invalid json file');
+    console.error(err);
+  }).catch(function(err) {
+    console.error(err);
+  });
 </script>
