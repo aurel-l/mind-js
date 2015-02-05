@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "mindmap-schema",
+  "definitions": {
+    "node": {
+      "type": "object",
+      "properties":{
+        "title": {
+          "type": "string"
+        },
+        "children":{
+          "type" : "array",
+          "items" : {"$ref": "#/definitions/node" },
+          "uniqueItems" : true
+        },
+        "content" : {
+          "type": "object",
+          "properties":{
+            "data" : {
+              "type" : "string"
+            },
+            "typeContent":{
+              "type" : "string",
+              "enum" : ["text", "image", "video", "url"]
+            }
+          }
+        }
+      },
+      "required" :["title"]  
+    }
+  },
+  "type" : "object",
+  "properties" :{
+    "name" : {
+      "type":"string"
+    },
+    "root" : { "$ref": "#/definitions/node" }
+  },
+  "required" :["name", "root"]
+}
