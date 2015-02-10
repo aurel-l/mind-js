@@ -4,18 +4,10 @@
 
   let Mindmap = document.currentScript.ownerDocument.module.classes.Mindmap;
 
-  /* placeholder */
-  let list = new Array(25);
-  for (let i = 0; i < 25; i++) {
-    list[i] = {
-      name: `Mindmap n°${i + 1}`,
-      key: Math.random().toString(),
-      date: {
-        created: new Date(Date.now() - (Math.round(Math.random() * Math.pow(10, 10)))).toISOString(),
-        changed: new Date(Date.now() - (Math.round(Math.random() * Math.pow(10, 8)))).toISOString()
-      }
-    };
-  }
+  let pseudoRandomKey = function() {
+    let str = Math.random().toString(16) + Date.now().toString(16);
+    return str.substring(2, str.length);
+  };
 
   let db = {
     mm: localforage.createInstance({
@@ -28,39 +20,64 @@
     })
   };
 
+  let metadata = [];
+  // iterate through all metadata stored in DB
+  db.meta.iterate((value, key) => {
+    metadata.push({key, meta: value});
+  }).then(() => {
+    // sort, last modified first
+    metadata.sort((a, b) => new Date(a.meta.date.changed) < new Date(b.meta.date.changed));
+    console.log('loaded all existing metadata');
+  });
+
   Polymer({
     ready: function() {
-      console.log('ready');
-      console.log(this);
-      db.mm.getItem(this.getAttribute('key'))
-      .then(function(mindmap) {
-        if (mindmap === null) {
-          console.log('new mindmap');
-          var fileImport = false;
-          if (fileImport) {
-            //
-          } else {
-            console.log('creating mindmap from scratch');
-            mindmap = new Mindmap();
-            mindmap.root.content = 'root content';
-            console.log(mindmap.root.childCount);
-            let node1 = mindmap.root.addChild();
-            let node2 = mindmap.root.addChild('node 2');
-            node1.delete();
-            node2.content = 'content of node 2';
-            let node3 = node2.addChild('image node');
-            node3.content = new Blob(['inside the blob'], {type: 'image/png'});
-            console.log(mindmap);
-          }
-        } else {
+      console.log('manager ready');
+      let key = this.getAttribute('key');
+      let [meta] = metadata.filter(item => item.key === key);
+      if (meta) {
+        // open existing mindmap
+        db.mm.getItem(key).then(mindmap => {
+          //expose mindmap
+          this.active = {
+            key,
+            meta: meta.meta,
+            data: mindmap
+          };
           console.log(mindmap);
-          //Affichage mindmap existante
+        });
+      } else {
+        // create new mindamp
+        while(!key || metadata.some(item => item.key === key)) {
+          //create unique key
+          key = pseudoRandomKey();
         }
-      }).catch(function(e) {
-        console.error(e);
-      });
+        console.log(`creating new mindamp with key ${key}`);
+        let now = new Date();
+        this.active = {
+          key,
+          meta: {
+            name: `new mindmap ${now.toLocaleString()}`,
+            date: {
+              created: now.toISOString(),
+              changed: now.toISOString()
+            }
+          },
+          data: new Mindmap(`new mindmap ${now.toLocaleString()}`)
+        };
+        metadata.push({key, meta: this.active.meta});
+        this.saveActive();
+      }
     },
-    list: list,
-    active: null
+    list: metadata,
+    active: null,
+    saveActive: function() {
+      let [meta] = metadata.filter(item => item.key === this.active.key);
+      this.active.meta.date.changed = new Date().toISOString();
+      meta.meta = this.active.meta;
+      db.meta.setItem(this.active.key, this.active.meta);
+      db.mm.setItem(this.active.key, this.active.data);
+      console.log(metadata);
+    }
   });
 })();

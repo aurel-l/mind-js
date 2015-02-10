@@ -6,7 +6,7 @@
 <link rel="import" href="../../styles/theme.html">
 <script src="../../bower_components/time-elements/time-elements.js"></script>
 
-<polymer-element name="list-page" attributes="list">
+<polymer-element name="list-page" attributes="list" noscript>
   <template>
     <core-style ref="main"></core-style>
     <scaffold-layout selected="My Mindmaps" fit>
@@ -16,19 +16,19 @@
         <core-selector id="mindmap-list" flex selected="-1" selectedIndex="{{mindmapIndex}}" cross-fade>
           <template repeat="{{mindmap, i in list}}">
             <paper-shadow layout vertical class="card">
-              <h1>{{mindmap.name}}</h1>
+              <h1>{{mindmap.meta.name}}</h1>
               <core-collapse opened="{{mindmapIndex === i}}">
                 <div>details...</div>
                 <div>
                   created
-                  <time is="relative-time" datetime="{{mindmap.date.created}}">
-                    {{mindmap.date.created}}
+                  <time is="relative-time" datetime="{{mindmap.meta.date.created}}">
+                    {{mindmap.meta.date.created}}
                   </time>
                 </div>
                 <div>
                   last change
-                  <time is="relative-time" datetime="{{mindmap.date.changed}}">
-                    {{mindmap.date.changed}}
+                  <time is="relative-time" datetime="{{mindmap.meta.date.changed}}">
+                    {{mindmap.meta.date.changed}}
                   </time>
                 </div>
                 <div layout horizontal center-justified>
@@ -49,5 +49,4 @@
       </section>
     </scaffold-layout>
   </template>
-  <script src="list-page.js"></script>
 </polymer-element>

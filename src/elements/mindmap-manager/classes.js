@@ -11,7 +11,16 @@
     storeName: 'resources'
   });
 
-  let p = Symbol('Private');
+  let resourceKeys;
+  resourcesDB.keys().then(keys => resourceKeys = new Set(keys));
+
+  let p;
+  try {
+    p = Symbol('Private');
+  } catch(err) {
+    //Symbol not supported
+    p = 'Private';
+  }
 
   class Content {
     constructor(data = null) {
@@ -36,11 +45,13 @@
 
   class Image extends Content {
     constructor(image, name = 'name') {
-      let key = name + '-' + pseudoRandomKey();
-      resourcesDB.setItem(key, image)
-      .then(function() {
-        super(key);
-      });
+      let key = null;
+      while (!key || key in resourceKeys) {
+        key = name + '-' + pseudoRandomKey();
+      }
+      resourceKeys.add(key);
+      resourcesDB.setItem(key, image);
+      super(key);
     }
 
     get data() {
