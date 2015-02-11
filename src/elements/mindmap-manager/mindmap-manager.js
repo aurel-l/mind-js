@@ -46,7 +46,7 @@
 
   Polymer({
     list: metadata,
-    load: function(key) {
+    load(key) {
       let [meta] = metadata.filter(item => item.key === key);
       return db.mm.getItem(key).then(mindmap => {
         if (!mindmap) {
@@ -60,48 +60,57 @@
         };
       });
     },
-    create: function(file) {
-      let key;
-      while(!key || metadata.some(item => item.key === key)) {
-        //create unique key
-        key = pseudoRandomKey();
-      }
-      let now = new Date();
-      let mindmap;
-      if (file) {
-        let fr = new FileReader();
-        fr.readAsText(file);
-        fr.addEventListener('load', (loadEvent) => {
-          try {
-            console.log(loadEvent.target.result);
+    create(file) {
+      new Promise(resolve => {
+        // create mindmap
+        let key;
+        while(!key || metadata.some(item => item.key === key)) {
+          //create unique key
+          key = pseudoRandomKey();
+        }
+        let now = new Date();
+        if (file) {
+          let fr = new FileReader();
+          fr.readAsText(file);
+          fr.addEventListener('load', (loadEvent) => {
             let json = JSON.parse(loadEvent.target.result);
             let valid = validator.validate(schema, json);
             if (valid) {
-              console.log(json);
+              resolve({
+                key,
+                meta: {
+                  name: json.name,
+                  date: {
+                    created: json.created || now.toISOString(),
+                    changed: json.changed || now.toISOString()
+                  }
+                },
+                data: Mindmap.fromJSON(json)
+              });
             } else {
               throw 'invalid json file';
             }
-          } catch(err) {
-            console.error(err);
-          }
-        });
-      } else {
-        mindmap = {
-          key,
-          meta: {
-            name: `new mindmap ${now.toLocaleString()}`,
-            date: {
-              created: now.toISOString(),
-              changed: now.toISOString()
-            }
-          },
-          data: new Mindmap(`new mindmap ${now.toLocaleString()}`)
-        };
-        metadata.unshift({key, meta: mindmap.meta});
+          });
+        } else {
+          resolve({
+            key,
+            meta: {
+              name: `new mindmap ${now.toLocaleString()}`,
+              date: {
+                created: now.toISOString(),
+                changed: now.toISOString()
+              }
+            },
+            data: new Mindmap(`new mindmap ${now.toLocaleString()}`)
+          });
+        }
+      }).then(mindmap => {
+        // store the mindmap
+        metadata.unshift({key: mindmap.key, meta: mindmap.meta});
         this.save(mindmap);
-      }
+      }, console.error);
     },
-    save: function(mindmap) {
+    save(mindmap) {
       let [meta] = metadata.filter(item => item.key === mindmap.key);
       mindmap.meta.date.changed = new Date().toISOString();
       metadata.sort(mostRecentFirst);
@@ -109,6 +118,14 @@
       db.meta.setItem(mindmap.key, mindmap.meta);
       db.mm.setItem(mindmap.key, mindmap.data);
       console.log(metadata);
+    },
+    clearAll() {
+      db.meta.clear();
+      db.mm.clear();
+      Mindmap.clearContents();
+      while (metadata.length > 0) {
+        metadata.pop();
+      }
     }
   });
 })();

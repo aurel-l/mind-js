@@ -6,13 +6,13 @@
     return str.substring(2, str.length);
   };
 
-  let resourcesDB = localforage.createInstance({
+  let resourceDB = localforage.createInstance({
     name: 'resources',
     storeName: 'resources'
   });
 
   let resourceKeys;
-  resourcesDB.keys().then(keys => resourceKeys = new Set(keys));
+  resourceDB.keys().then(keys => resourceKeys = new Set(keys));
 
   let p;
   try {
@@ -50,16 +50,16 @@
         key = name + '-' + pseudoRandomKey();
       }
       resourceKeys.add(key);
-      resourcesDB.setItem(key, image);
+      resourceDB.setItem(key, image);
       super(key);
     }
 
     get data() {
-      return resourcesDB.getItem(this[p].get('data'));
+      return resourceDB.getItem(this[p].get('data'));
     }
 
     delete() {
-      return resourcesDB.removeItem(this[p].get('data'));
+      return resourceDB.removeItem(this[p].get('data'));
     }
   }
 
@@ -122,22 +122,27 @@
   }
 
   class Mindmap {
-    constructor(name = 'mindmap', object = null) {
-      if (object) {
-        //todo
-      } else {
-        this[p] = new Map();
-        this[p].set('name', name);
-        this[p].set('created', Date.now());
-        this[p].set('lastModified', Date.now());
-        this[p].set('root', new Node(name));
-      }
+    constructor(name = 'mindmap') {
+      this[p] = new Map();
+      this[p].set('name', name);
+      this[p].set('root', new Node(name));
     }
 
     get root() {
       return this[p].get('root');
     }
   }
+
+  Mindmap.fromJSON = function(object) {
+    let mindmap = new Mindmap(object.name);
+    mindmap.root[p].set('title', object.root.title);
+
+  };
+
+  Mindmap.clearContents = function() {
+    resourceKeys = new Set();
+    resourceDB.clear();
+  };
 
   document.currentScript.ownerDocument.module = {
     classes: {Mindmap: Mindmap}
