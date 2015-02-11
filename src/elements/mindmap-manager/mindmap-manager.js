@@ -1,4 +1,6 @@
 /* global localforage: false */
+/* global fetch: false */
+/* global ZSchema: false */
 (function() {
   'use strict';
 
@@ -7,6 +9,10 @@
   let pseudoRandomKey = function() {
     let str = Math.random().toString(16) + Date.now().toString(16);
     return str.substring(2, str.length);
+  };
+
+  let mostRecentFirst = function(a, b) {
+    return Date.parse(b.meta.date.changed) - Date.parse(a.meta.date.changed);
   };
 
   let db = {
@@ -20,41 +26,67 @@
     })
   };
 
+  let schema;
+  let path = document.currentScript.baseURI;
+  path = path.substr(0, path.lastIndexOf('/'));
+  fetch(path + '/schema')
+    .then(response => response.json())
+    .then(parsed => schema = parsed);
+  let validator = new ZSchema();
+
   let metadata = [];
   // iterate through all metadata stored in DB
   db.meta.iterate((value, key) => {
     metadata.push({key, meta: value});
   }).then(() => {
     // sort, last modified first
-    metadata.sort((a, b) => new Date(a.meta.date.changed) < new Date(b.meta.date.changed));
+    metadata.sort(mostRecentFirst);
     console.log('loaded all existing metadata');
   });
 
   Polymer({
-    ready: function() {
-      console.log('manager ready');
-      let key = this.getAttribute('key');
+    list: metadata,
+    load: function(key) {
       let [meta] = metadata.filter(item => item.key === key);
-      if (meta) {
-        // open existing mindmap
-        db.mm.getItem(key).then(mindmap => {
-          //expose mindmap
-          this.active = {
-            key,
-            meta: meta.meta,
-            data: mindmap
-          };
-          console.log(mindmap);
+      return db.mm.getItem(key).then(mindmap => {
+        if (!mindmap) {
+          throw 'Not an existing mindmap';
+        }
+        //expose mindmap
+        return {
+          key,
+          meta: meta.meta,
+          data: mindmap
+        };
+      });
+    },
+    create: function(file) {
+      let key;
+      while(!key || metadata.some(item => item.key === key)) {
+        //create unique key
+        key = pseudoRandomKey();
+      }
+      let now = new Date();
+      let mindmap;
+      if (file) {
+        let fr = new FileReader();
+        fr.readAsText(file);
+        fr.addEventListener('load', (loadEvent) => {
+          try {
+            console.log(loadEvent.target.result);
+            let json = JSON.parse(loadEvent.target.result);
+            let valid = validator.validate(schema, json);
+            if (valid) {
+              console.log(json);
+            } else {
+              throw 'invalid json file';
+            }
+          } catch(err) {
+            console.error(err);
+          }
         });
       } else {
-        // create new mindamp
-        while(!key || metadata.some(item => item.key === key)) {
-          //create unique key
-          key = pseudoRandomKey();
-        }
-        console.log(`creating new mindamp with key ${key}`);
-        let now = new Date();
-        this.active = {
+        mindmap = {
           key,
           meta: {
             name: `new mindmap ${now.toLocaleString()}`,
@@ -65,18 +97,17 @@
           },
           data: new Mindmap(`new mindmap ${now.toLocaleString()}`)
         };
-        metadata.push({key, meta: this.active.meta});
-        this.saveActive();
+        metadata.unshift({key, meta: mindmap.meta});
+        this.save(mindmap);
       }
     },
-    list: metadata,
-    active: null,
-    saveActive: function() {
-      let [meta] = metadata.filter(item => item.key === this.active.key);
-      this.active.meta.date.changed = new Date().toISOString();
-      meta.meta = this.active.meta;
-      db.meta.setItem(this.active.key, this.active.meta);
-      db.mm.setItem(this.active.key, this.active.data);
+    save: function(mindmap) {
+      let [meta] = metadata.filter(item => item.key === mindmap.key);
+      mindmap.meta.date.changed = new Date().toISOString();
+      metadata.sort(mostRecentFirst);
+      meta.meta = mindmap.meta;
+      db.meta.setItem(mindmap.key, mindmap.meta);
+      db.mm.setItem(mindmap.key, mindmap.data);
       console.log(metadata);
     }
   });

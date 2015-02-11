@@ -6,7 +6,7 @@
 <link rel="import" href="../../styles/theme.html">
 <script src="../../bower_components/time-elements/time-elements.js"></script>
 
-<polymer-element name="list-page" attributes="list" noscript>
+<polymer-element name="list-page" attributes="list">
   <template>
     <core-style ref="main"></core-style>
     <scaffold-layout selected="My Mindmaps" fit>
@@ -43,10 +43,18 @@
             </paper-shadow>
           </template>
         </core-selector>
-        <a href="/#/mindmap">
-          <paper-fab icon="add"></paper-fab>
+        <a id="fab">
+          <paper-fab icon="add" on-tap="{{toggle}}"></paper-fab>
+          <paper-action-dialog id="dialog" heading="New Mindmap">
+            <p>Create a new mindmap</p>
+            <label for="file-input">Import from file (optionnal) :</label><br>
+            <input type="file" id="file-input">
+            <paper-button dismissive>Cancel</paper-button>
+            <paper-button affirmative id="create" on-tap="{{create}}">Create</paper-button>
+          </paper-action-dialog>
         </a>
       </section>
     </scaffold-layout>
   </template>
+  <script src="list-page.js"></script>
 </polymer-element>

@@ -122,12 +122,16 @@
   }
 
   class Mindmap {
-    constructor(name = 'mindmap') {
-      this[p] = new Map();
-      this[p].set('name', name);
-      this[p].set('created', Date.now());
-      this[p].set('lastModified', Date.now());
-      this[p].set('root', new Node(name));
+    constructor(name = 'mindmap', object = null) {
+      if (object) {
+        //todo
+      } else {
+        this[p] = new Map();
+        this[p].set('name', name);
+        this[p].set('created', Date.now());
+        this[p].set('lastModified', Date.now());
+        this[p].set('root', new Node(name));
+      }
     }
 
     get root() {
