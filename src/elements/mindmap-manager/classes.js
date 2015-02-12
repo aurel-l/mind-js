@@ -14,6 +14,23 @@
   let resourceKeys;
   resourceDB.keys().then(keys => resourceKeys = new Set(keys));
 
+  let Manager = {
+    resource: {
+      get(key) {
+        return resourceDB.getItem(key);
+      },
+      set(content, meta = {name: 'untitled'}) {
+        let key = null;
+        while (!key || key in resourceKeys) {
+          key = meta.name + '-' + pseudoRandomKey();
+        }
+        resourceKeys.add(key);
+        return resourceDB.setItem(key, {content, meta}).then(() => key);
+      }
+    }
+  };
+  console.log(Manager);
+
   let p;
   try {
     p = Symbol('Private');
@@ -133,10 +150,17 @@
     }
   }
 
-  Mindmap.fromJSON = function(object) {
+  Mindmap.fromObject = function(object) {
     let mindmap = new Mindmap(object.name);
     mindmap.root[p].set('title', object.root.title);
+    return mindmap;
+  };
 
+  Mindmap.reinstanciate= function(object) {
+    console.log(object);
+    let mindmap = new Mindmap(object.name);
+    mindmap.root[p].set('title', object.root.title);
+    return mindmap;
   };
 
   Mindmap.clearContents = function() {

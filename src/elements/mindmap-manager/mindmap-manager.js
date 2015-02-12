@@ -56,7 +56,7 @@
         return {
           key,
           meta: meta.meta,
-          data: mindmap
+          data: Mindmap.reinstanciate(mindmap)
         };
       });
     },
@@ -85,7 +85,7 @@
                     changed: json.changed || now.toISOString()
                   }
                 },
-                data: Mindmap.fromJSON(json)
+                data: Mindmap.fromObject(json)
               });
             } else {
               throw 'invalid json file';
@@ -106,6 +106,7 @@
         }
       }).then(mindmap => {
         // store the mindmap
+        console.log(mindmap);
         metadata.unshift({key: mindmap.key, meta: mindmap.meta});
         this.save(mindmap);
       }, console.error);
