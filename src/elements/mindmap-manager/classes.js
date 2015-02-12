@@ -29,7 +29,6 @@
       }
     }
   };
-  console.log(Manager);
 
   let p;
   try {
@@ -169,6 +168,6 @@
   };
 
   document.currentScript.ownerDocument.module = {
-    classes: {Mindmap: Mindmap}
+    classes: {Mindmap, Manager}
   };
 })();

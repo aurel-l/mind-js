@@ -4,7 +4,8 @@
 (function() {
   'use strict';
 
-  let Mindmap = document.currentScript.ownerDocument.module.classes.Mindmap;
+  let {Mindmap, Manager} = document.currentScript.ownerDocument.module.classes;
+  console.log(Manager);
 
   let pseudoRandomKey = function() {
     let str = Math.random().toString(16) + Date.now().toString(16);
@@ -56,7 +57,7 @@
         return {
           key,
           meta: meta.meta,
-          data: Mindmap.reinstanciate(mindmap)
+          data: mindmap
         };
       });
     },
@@ -73,19 +74,19 @@
           let fr = new FileReader();
           fr.readAsText(file);
           fr.addEventListener('load', (loadEvent) => {
-            let json = JSON.parse(loadEvent.target.result);
-            let valid = validator.validate(schema, json);
+            let object = JSON.parse(loadEvent.target.result);
+            let valid = validator.validate(schema, object);
             if (valid) {
               resolve({
                 key,
                 meta: {
-                  name: json.name,
+                  name: object.name,
                   date: {
-                    created: json.created || now.toISOString(),
-                    changed: json.changed || now.toISOString()
+                    created: object.created || now.toISOString(),
+                    changed: object.changed || now.toISOString()
                   }
                 },
-                data: Mindmap.fromObject(json)
+                data: object
               });
             } else {
               throw 'invalid json file';
