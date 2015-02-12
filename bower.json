@@ -4,6 +4,7 @@
   "dependencies": {
     "app-router": "erikringsmuth/app-router#~2.4.0",
     "core-elements": "Polymer/core-elements#~0.5.4",
+    "d3": "mbostock/d3#~3.5.5",
     "fetch": "github/fetch#~0.7.0",
     "localForage": "mozilla/localForage#~1.2.1",
     "paper-elements": "Polymer/paper-elements#~0.5.4",
