@@ -2,6 +2,7 @@
   'use strict';
   let manager;
   let d3 = document.currentScript.ownerDocument.module.d3;
+  console.log(d3);
   Polymer({
     ready() {
       manager = document.querySelector('mindmap-manager');
