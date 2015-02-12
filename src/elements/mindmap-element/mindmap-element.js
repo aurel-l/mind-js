@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   let manager;
-  
+  let d3 = document.currentScript.ownerDocument.module.d3;
   Polymer({
     ready() {
       manager = document.querySelector('mindmap-manager');
@@ -9,15 +9,12 @@
     attached() {
       manager.load(this.key).then(mindmap => {
         console.log(mindmap);
-/*
+//comm a mettre debut
         var width = 960,
             height = 500,
             data = mindmap;
 
-        //var force = d3.layout.force()
-        var force = force()
-            .size([width, height])
-            .on('tick', tick);
+        
 
         var svg = d3.select('body').append('svg')
             .attr('width', width)
@@ -42,6 +39,14 @@
           node.attr('cx', function(d) { return d.x; })
               .attr('cy', function(d) { return d.y; });
         }
+
+
+        //var force = d3.layout.force()
+        var force = force()
+            .size([width, height])
+            .on('tick', tick);
+
+
 
         // Color leaf nodes orange, and packages white or blue.
         function color(d) {
@@ -84,7 +89,7 @@
 
       function update() {
         var nodes = flatten(data.root),
-            links = layout.tree().links(nodes);
+            links = d3.layout.tree().links(nodes);
         // Restart the force layout.
         force
             .nodes(nodes)
@@ -128,7 +133,7 @@
 
       update();
 
-*/
+//comm a finir
       });
       /*if (this.list.some(el => el.key === this.key)) {
         console.log('opening existing mindmap');
