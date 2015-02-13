@@ -20,6 +20,7 @@
     "wrap": false,
     "unwrap": false,
     "Polymer": false,
-    "Platform": false
+    "Platform": false,
+    "d3": false
   }
 }
