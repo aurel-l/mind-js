@@ -14,10 +14,11 @@
         depth: 2
       }
     },
+    toggle() {
+      this.$['clear-dialog'].toggle();
+    },
     clearAll() {
-      if (window.confirm('Are you sure you want to remove all cached data?')) {
-        manager.clearAll();
-      }
+      manager.clearAll();
     }
   });
 })();

@@ -48,7 +48,14 @@
         <paper-shadow class="card">
           <h1>Storage Settings</h1>
           <div layout vertical>
-            <paper-button noink raised on-tap="{{clearAll}}">Clear cached data</paper-button>
+            <paper-button noink raised on-tap="{{toggle}}">
+              Clear cached data
+              <paper-action-dialog backdrop id="clear-dialog" transition="core-transition-center">
+                <p>Are you sure you want to clear all cached data?</p>
+                <paper-button dismissive>Cancel</paper-button>
+                <paper-button affirmative id="create" on-tap="{{clearAll}}">Clear all</paper-button>
+              </paper-action-dialog>
+            </paper-button>
           </div>
         </paper-shadow>
       </section>

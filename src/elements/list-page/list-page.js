@@ -2,13 +2,13 @@
   'use strict';
   let manager;
   Polymer({
-    ready: function() {
+    ready() {
       manager = document.querySelector('mindmap-manager');
     },
-    toggle: function() {
+    toggle() {
       this.$.dialog.toggle();
     },
-    create: function() {
+    create() {
       manager.create(this.$['file-input'].files[0]);
       this.$['file-input'].value = '';
     }

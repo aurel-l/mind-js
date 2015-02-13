@@ -1,19 +1,11 @@
 /* global localforage: false */
-/* global fetch: false */
 /* global ZSchema: false */
 (function() {
   'use strict';
 
-  let {Mindmap, Manager} = document.currentScript.ownerDocument.module.classes;
-  console.log(Manager);
-
   let pseudoRandomKey = function() {
     let str = Math.random().toString(16) + Date.now().toString(16);
     return str.substring(2, str.length);
-  };
-
-  let mostRecentFirst = function(a, b) {
-    return Date.parse(b.meta.date.changed) - Date.parse(a.meta.date.changed);
   };
 
   let db = {
@@ -24,15 +16,78 @@
     meta: localforage.createInstance({
       name: 'metadata',
       storeName: 'metadata'
+    }),
+    res: localforage.createInstance({
+      name: 'resources',
+      storeName: 'resources'
     })
   };
 
-  let schema;
-  let path = document.currentScript.baseURI;
-  path = path.substr(0, path.lastIndexOf('/'));
-  fetch(path + '/schema')
-    .then(response => response.json())
-    .then(parsed => schema = parsed);
+  let resourceKeys;
+  db.res.keys().then(keys => resourceKeys = new Set(keys));
+
+  let Manager = {
+    resource: {
+      get(key) {
+        return db.res.getItem(key);
+      },
+      set(content, meta = {name: 'untitled'}) {
+        let key = null;
+        while (!key || key in resourceKeys) {
+          key = meta.name + '-' + pseudoRandomKey();
+        }
+        resourceKeys.add(key);
+        return db.res.setItem(key, {content, meta}).then(() => key);
+      }
+    }
+  };
+
+  console.log(Manager);
+
+  let mostRecentFirst = function(a, b) {
+    return Date.parse(b.meta.date.changed) - Date.parse(a.meta.date.changed);
+  };
+
+  let schema = {
+    $schema: 'http://json-schema.org/draft-04/schema#',
+    description: 'mindmap-schema',
+    definitions: {
+      node: {
+        type: 'object',
+        properties: {
+          title: {
+            type: 'string'
+          },
+          children: {
+            type: 'array',
+            items: {$ref: '#/definitions/node'},
+            uniqueItems: true
+          },
+          content: {
+            type: 'object',
+            properties:{
+              data: {
+                type: 'string'
+              },
+              typeContent:{
+                type: 'string',
+                enum: ['text', 'image', 'video', 'url']
+              }
+            }
+          }
+        },
+        required: ['title']
+      }
+    },
+    type: 'object',
+    properties: {
+      name: {
+        type: 'string'
+      },
+      root: {$ref: '#/definitions/node'}
+    },
+    required: ['name', 'root']
+  };
   let validator = new ZSchema();
 
   let metadata = [];
@@ -102,7 +157,15 @@
                 changed: now.toISOString()
               }
             },
-            data: new Mindmap(`new mindmap ${now.toLocaleString()}`)
+            data: {
+              name: `new mindmap ${now.toLocaleString()}`,
+              root: {
+                title: `new mindmap ${now.toLocaleString()}`,
+                children: [],
+                parent: null,
+                content: {}
+              }
+            }
           });
         }
       }).then(mindmap => {
@@ -124,7 +187,8 @@
     clearAll() {
       db.meta.clear();
       db.mm.clear();
-      Mindmap.clearContents();
+      db.res.clear();
+      resourceKeys.clear();
       while (metadata.length > 0) {
         metadata.pop();
       }

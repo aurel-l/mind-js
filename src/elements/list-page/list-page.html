@@ -18,7 +18,6 @@
             <paper-shadow layout vertical class="card">
               <h1>{{mindmap.meta.name}}</h1>
               <core-collapse opened="{{mindmapIndex === i}}">
-                <div>details...</div>
                 <div>
                   created
                   <time is="relative-time" datetime="{{mindmap.meta.date.created}}">
@@ -44,14 +43,15 @@
           </template>
         </core-selector>
         <a id="fab">
-          <paper-fab icon="add" on-tap="{{toggle}}"></paper-fab>
-          <paper-action-dialog backdrop id="dialog" heading="New Mindmap">
-            <p>Create a new mindmap</p>
-            <label for="file-input">Import from file (optionnal) :</label><br>
-            <input type="file" id="file-input">
-            <paper-button dismissive>Cancel</paper-button>
-            <paper-button affirmative id="create" on-tap="{{create}}">Create</paper-button>
-          </paper-action-dialog>
+          <paper-fab icon="add" on-tap="{{toggle}}">
+            <paper-action-dialog backdrop id="dialog" heading="New Mindmap" transition="core-transition-center">
+              <p>Create a new mindmap</p>
+              <label for="file-input">Import from file (optionnal) :</label><br>
+              <input type="file" id="file-input">
+              <paper-button dismissive>Cancel</paper-button>
+              <paper-button affirmative id="create" on-tap="{{create}}">Create</paper-button>
+            </paper-action-dialog>
+          </paper-fab>
         </a>
       </section>
     </scaffold-layout>
