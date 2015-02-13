@@ -7,4 +7,5 @@ test/bower_components/
 .recognizer/
 npm-debug.log
 browsers.json
+.directory
 

@@ -1,4 +1,5 @@
 {
   "ids": false,
-  "fallback-colors": false
+  "fallback-colors": false,
+  "known-properties": false
 }

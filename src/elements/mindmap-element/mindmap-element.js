@@ -1,3 +1,4 @@
+/* global d3: false */
 (function() {
   'use strict';
   let manager;
@@ -14,7 +15,7 @@
             height = 500,
             data = mindmap;
 
-        
+
 
         var svg = d3.select('body').append('svg')
             .attr('width', width)
@@ -23,13 +24,13 @@
         var link = svg.selectAll('.link'),
             node = svg.selectAll('.node');
 
-        
 
-          
 
-          
 
-        
+
+
+
+
         function tick() {
           link.attr('x1', function(d) { return d.source.x; })
               .attr('y1', function(d) { return d.source.y; })
