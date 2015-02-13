@@ -12,8 +12,6 @@
         console.log(mindmap);
 //comm a mettre debut
 
-        //var svg = this.$.svg
-        window.g = this.$.svg;
         var svg = d3.select(this.$.svg);
 
         var link = svg.selectAll('.link'),
