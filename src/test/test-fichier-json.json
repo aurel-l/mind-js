@@ -33,8 +33,7 @@
       },
       {
       "title" : "node 2",
-      "content" : {"data" : "content of node 2", "typeContent" : "text"},
-      "children" : []
+      "content" : {"data" : "content of node 2", "typeContent" : "text"}
       }
     ]
   }

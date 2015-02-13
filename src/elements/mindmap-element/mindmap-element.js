@@ -11,15 +11,10 @@
       manager.load(this.key).then(mindmap => {
         console.log(mindmap);
 //comm a mettre debut
-        var width = 960,
-            height = 500,
-            data = mindmap;
 
-
-
-        var svg = d3.select('body').append('svg')
-            .attr('width', width)
-            .attr('height', height);
+        //var svg = this.$.svg
+        window.g = this.$.svg;
+        var svg = d3.select(this.$.svg);
 
         var link = svg.selectAll('.link'),
             node = svg.selectAll('.node');
@@ -43,7 +38,8 @@
 
 
         //var force = d3.layout.force()
-        var force = force()
+        var {width, height} = this.$.svg.getBoundingClientRect();
+        var force = d3.layout.force()
             .size([width, height])
             .on('tick', tick);
 
@@ -89,7 +85,7 @@
 
 
       function update() {
-        var nodes = flatten(data.root),
+        var nodes = flatten(mindmap.data.root),
             links = d3.layout.tree().links(nodes);
         // Restart the force layout.
         force
