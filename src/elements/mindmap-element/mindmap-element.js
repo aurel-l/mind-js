@@ -2,7 +2,6 @@
 (function() {
   'use strict';
   let manager;
-  console.log(d3);
   Polymer({
     ready() {
       manager = document.querySelector('mindmap-manager');
@@ -15,9 +14,8 @@
         var svg = d3.select(this.$.svg);
 
         var link = svg.selectAll('.link'),
-            node = svg.selectAll('.node');
-
-
+            node = svg.selectAll('.node'),
+            root;
 
 
 
@@ -30,14 +28,15 @@
               .attr('x2', function(d) { return d.target.x; })
               .attr('y2', function(d) { return d.target.y; });
 
-          node.attr('cx', function(d) { return d.x; })
-              .attr('cy', function(d) { return d.y; });
+          node.attr('transform', d => `translate(${d.x}, ${d.y})`);
         }
 
 
         //var force = d3.layout.force()
         var {width, height} = this.$.svg.getBoundingClientRect();
         var force = d3.layout.force()
+            .charge(d => (d.children ? d.children.length + 1 : 1) * -300)
+            .linkDistance(d => (d.children ? d.children.length + 1 : 1) * 3)
             .size([width, height])
             .on('tick', tick);
 
@@ -54,20 +53,33 @@
             if (d.children) {
               d._children = d.children;
               d.children = null;
+              //d.meta = true;
             } else {
               d.children = d._children;
               d._children = null;
+              //d.meta = false;
             }
             update();
           }
         }
 
+        // Toggle open content on click.
+        let clickContent = d => {
+          if (!event.defaultPrevented) {
+            this.content.title = d.title;
+            this.content.data = d.content.data;
+            this.$.content.toggle();
+          }
+        };
+
         // Returns a list of all nodes under the root.
         function flatten(data) {
           var nodes = [], i = 0;
-          console.log(data);
+          root = data;
+          root.fixed = true;
+          root.x = width / 2;
+          root.y = height / 2;
           function recurse(node) {
-            console.log(node);
             if (node.children) {node.children.forEach(recurse);}
             if (!node.id) {node.id = ++i;}
             nodes.push(node);
@@ -89,11 +101,10 @@
         force
             .nodes(nodes)
             .links(links)
+            //.linkDistance(20)
             .start();
-      console.log(nodes);
-
         // Update the links…
-        link = link.data(links, function(d) { return d.target.id; });
+        link = link.data(links, function(d) { return d.target.title; });
 
         // Exit any old links.
         link.exit().remove();
@@ -107,34 +118,38 @@
             .attr('y2', function(d) { return d.target.y; });
 
         // Update the nodes…
-        node = node.data(nodes, function(d) { return d.id; }).style('fill', color);
-      console.log('node', node.content);
+        node = node.data(nodes, function(d) { return d.title; }).style('fill', color);
+      
         // Exit any old nodes.
         node.exit().remove();
+        
 
-        // Enter any new nodes.
-        node.enter().append('circle')
-            .attr('class', 'node')
-            .attr('cx', function(d) { return d.x; })
-            .attr('cy', function(d) { return d.y; })
-            .attr('r', function(d) { return Math.sqrt(d.size) / 10 || 4.5; })
-            .style('fill', color)
-            .on('click', click)
-            .call(force.drag);
-}
+        var g = node.enter().append('g')
+          .attr('class', 'node')
+          .call(force.drag);
+        g.append('circle')
+          .attr('r', d => Math.sqrt((d.children ? d.children.length + 1 : 1) * 40))
+          .style('fill', color)
+          .on('click', click);
+          
+        g.append('text')
+          //.attr('x', d => d.x)
+          //.attr('y', d => d.y)
+          .attr('dx', d => Math.sqrt((d.children ? d.children.length + 1 : 1) * 40))
+          .text(d => d.title)
+          .on('click', clickContent);
 
-
+      }
 
 
       update();
 
 //comm a finir
       });
-      /*if (this.list.some(el => el.key === this.key)) {
-        console.log('opening existing mindmap');
-      } else {
-        console.log('creating new mindmap');
-      }*/
+    },
+    content: {
+      title: null,
+      data: null
     }
   });
 })();
