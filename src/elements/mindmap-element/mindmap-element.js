@@ -64,11 +64,54 @@
         }
 
         // Toggle open content on click.
+        let supported = {
+          images: new Set(['png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp', 'apng', 'svg', 'ico']),
+          videos: new Set(['ogg', 'ogv', 'ogm', 'webm', 'mp4']),
+          audios: new Set(['mp3', 'wav'])
+        };
+        let generateContent = (content, type) => {
+          return new Promise((res, rej) => {
+            let html;
+            switch (type) {
+              case 'text':
+                html = document.createElement('p');
+                html.innerText = content;
+                res(html);
+                break;
+              case 'url':
+                let ext = content.split('.').pop().toLowerCase();
+                if (supported.images.has(ext)) {
+                  html = document.createElement('img');
+                  html.src = content;
+                } else if (supported.videos.has(ext)) {
+                  html = document.createElement('video');
+                  html.controls = true;
+                  html.src = content;
+                } else if (supported.audios.has(ext)) {
+                  html = document.createElement('audio');
+                  html.controls = true;
+                  html.src = content;
+                } else {
+                  html = document.createElement('a');
+                  html.target = '_blank';
+                  html.href = content;
+                  html.innerText = content;
+                }
+                res(html);
+                break;
+              default:
+                rej('unsupported type');
+            }
+          });
+        };
         let clickContent = d => {
           if (!event.defaultPrevented) {
-            this.content.title = d.title;
-            this.content.data = d.content.data;
-            this.$.content.toggle();
+            generateContent(d.content.data, d.content.typeContent)
+              .then((content) =>  {
+                this.$.content.heading = d.title;
+                this.$.content.replaceChild(content, this.$.content.firstElementChild);
+                this.$.content.toggle();
+              });
           }
         };
 
@@ -127,6 +170,7 @@
         var g = node.enter().append('g')
           .attr('class', 'node')
           .call(force.drag);
+
         g.append('circle')
           .attr('r', d => Math.sqrt((d.children ? d.children.length + 1 : 1) * 40))
           .style('fill', color)
@@ -146,10 +190,6 @@
 
 //comm a finir
       });
-    },
-    content: {
-      title: null,
-      data: null
     }
   });
 })();

@@ -16,16 +16,24 @@
         "content" : {"data" : "content of node 1.1", "typeContent" : "text"}
         },
         {
-        "title" : "node 1.2",
-        "content" : {"data" : "content of node 1.2", "typeContent" : "text"},
+        "title" : "node 1.2 urls",
+        "content" : {"data" : "url nodes", "typeContent" : "text"},
         "children" : [
           {
-          "title" : "node 1.2.1",
-          "content" : {"data" : "content of node 1", "typeContent" : "video"}
+          "title" : "audio",
+          "content" : {"data" : "http://soundbible.com/mp3/Rudy_rooster_crowing-Shelley-1948282641.mp3", "typeContent" : "url"}
           },
           {
-          "title" : "node 1.2.2",
-          "content" : {"data" : "content of node 1.2.2", "typeContent" : "url"}
+          "title" : "video",
+          "content" : {"data" : "http://tinyvid.tv/file/2ii0jn462t5ow.ogg", "typeContent" : "url"}
+          },
+          {
+          "title" : "image",
+          "content" : {"data" : "http://upload.wikimedia.org/wikipedia/commons/2/2d/DSCOVR_rendering_(transparent_bg).png", "typeContent" : "url"}
+          },
+          {
+          "title" : "url",
+          "content" : {"data" : "https://fr.wikipedia.org", "typeContent" : "url"}
           }
         ]
         }
