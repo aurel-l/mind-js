@@ -14,9 +14,9 @@
     <paper-action-dialog heading="" id="content" transition="core-transition-center" backdrop>
       <p></p>
       <core-style ref="main"></core-style>
-      <paper-icon-button dismissive icon="delete"></paper-icon-button>
-      <paper-icon-button affirmative icon="create"></paper-icon-button>
-      <paper-icon-button affirmative icon="add-circle"></paper-icon-button>
+      <paper-icon-button dismissive icon="delete" on-tap="{{delete}}"></paper-icon-button>
+      <paper-icon-button affirmative icon="create" on-tap="{{modify}}"></paper-icon-button>
+      <paper-icon-button affirmative icon="add-circle" on-tap="{{addChild}}"></paper-icon-button>
     </paper-action-dialog>
   </template>
   <script src="mindmap-element.js"></script>

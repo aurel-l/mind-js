@@ -1,7 +1,7 @@
 /* global d3: false */
 (function() {
   'use strict';
-  let manager;
+  let manager, currentMindmap, currentUpdate;
   Polymer({
     ready() {
       manager = document.querySelector('mindmap-manager');
@@ -9,6 +9,8 @@
     attached() {
       manager.load(this.key).then(mindmap => {
         console.log(mindmap);
+        currentMindmap = mindmap;
+        window.mindmap = mindmap;
 //comm a mettre debut
 
         var svg = d3.select(this.$.svg);
@@ -110,6 +112,7 @@
               .then((content) =>  {
                 this.$.content.heading = d.title;
                 this.$.content.replaceChild(content, this.$.content.firstElementChild);
+                this.$.content.mindmapNode = d;
                 this.$.content.toggle();
               });
           }
@@ -124,7 +127,7 @@
           root.y = height / 2;
           function recurse(node) {
             if (node.children) {node.children.forEach(recurse);}
-            if (!node.id) {node.id = ++i;}
+            node.id = ++i;
             nodes.push(node);
           }
 
@@ -184,12 +187,43 @@
           .on('click', clickContent);
 
       }
+      currentUpdate = update;
 
 
       update();
 
 //comm a finir
       });
+    },
+    delete(_, __, button) {
+      let trash = button.parentElement.mindmapNode;
+      let recurse = node => {
+        if (node.children) {
+          let i = node.children.indexOf(trash);
+          if (i > -1) {
+            node.children.splice(i, 1);
+          }
+          node.children.forEach(recurse);
+        }
+      };
+      recurse(currentMindmap.data.root);
+      currentUpdate();
+    },
+    addChild(_, __, button) {
+      let parent = button.parentElement.mindmapNode;
+      if (!parent.children) {
+        parent.children = [];
+      }
+      console.log(parent.children);
+      parent.children.push({
+        title: 'new node',
+        content: {
+          data: 'new node content',
+          typeContent: 'text'
+        }
+      });
+      console.log(parent.children);
+      currentUpdate();
     }
   });
 })();

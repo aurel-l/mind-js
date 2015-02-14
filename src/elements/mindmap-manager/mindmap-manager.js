@@ -163,7 +163,10 @@
                 title: `new mindmap ${now.toLocaleString()}`,
                 children: [],
                 parent: null,
-                content: {}
+                content: {
+                  data: 'root node',
+                  typeContent: 'text'
+                }
               }
             }
           });
