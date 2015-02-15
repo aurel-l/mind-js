@@ -99,7 +99,6 @@
             let html = document.createElement('div');
             html.setAttribute('vertical', true);
             html.setAttribute('layout', true);
-            html.setAttribute('center', true);
             switch (type) {
               case 'text':
                 html.innerText = content;
@@ -108,7 +107,9 @@
                 let a = document.createElement('a');
                 a.target = '_blank';
                 a.href = content;
-                a.innerText = content;
+                let icon = document.createElement('paper-icon-button');
+                icon.icon = 'link';
+                a.appendChild(icon);
                 html.appendChild(a);
                 let ext = content.split('.').pop().toLowerCase();
                 if (supported.images.has(ext)) {
@@ -125,6 +126,8 @@
                   audio.controls = true;
                   audio.src = content;
                   html.appendChild(audio);
+                } else {
+                  a.innerText = content;
                 }
                 break;
               default:
