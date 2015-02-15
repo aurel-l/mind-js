@@ -74,36 +74,44 @@
         };
         let generateContent = (content, type) => {
           return new Promise((res, rej) => {
-            let html;
+            let html = document.createElement('div');
+            html.setAttribute('vertical', true);
+            html.setAttribute('layout', true);
+            html.setAttribute('center', true);
             switch (type) {
               case 'text':
-                html = document.createElement('p');
                 html.innerText = content;
-                res(html);
                 break;
               case 'url':
+                let a = document.createElement('a');
+                a.target = '_blank';
+                a.href = content;
+                a.innerText = content;
+                html.appendChild(a);
                 let ext = content.split('.').pop().toLowerCase();
                 if (supported.images.has(ext)) {
-                  html = document.createElement('img');
-                  html.src = content;
+                  let img = document.createElement('img');
+                  img.src = content;
+                  html.appendChild(img);
                 } else if (supported.videos.has(ext)) {
-                  html = document.createElement('video');
-                  html.controls = true;
-                  html.src = content;
+                  let video = document.createElement('video');
+                  video.controls = true;
+                  video.src = content;
+                  html.appendChild(video);
                 } else if (supported.audios.has(ext)) {
-                  html = document.createElement('audio');
-                  html.controls = true;
-                  html.src = content;
-                } else {
-                  html = document.createElement('a');
-                  html.target = '_blank';
-                  html.href = content;
-                  html.innerText = content;
+                  let audio = document.createElement('audio');
+                  audio.controls = true;
+                  audio.src = content;
+                  html.appendChild(audio);
                 }
-                res(html);
                 break;
               default:
-                rej('unsupported type');
+                html = null;
+            }
+            if (html) {
+              res(html);
+            } else {
+              rej('unsupported type');
             }
           });
         };
@@ -166,10 +174,10 @@
 
         // Update the nodes…
         node = node.data(nodes, function(d) { return d.title; }).style('fill', color);
-      
+
         // Exit any old nodes.
         node.exit().remove();
-        
+
 
         var g = node.enter().append('g')
           .attr('class', 'node')
@@ -179,7 +187,7 @@
           .attr('r', d => Math.sqrt((d.children ? d.children.length + 1 : 1) * 40))
           .style('fill', color)
           .on('click', click);
-          
+
         g.append('text')
           //.attr('x', d => d.x)
           //.attr('y', d => d.y)
