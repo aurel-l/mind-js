@@ -30,13 +30,13 @@
                     {{mindmap.meta.date.changed}}
                   </time>
                 </div>
-                <div layout horizontal center-justified>
+                <div layout horizontal center-justified data-key="{{mindmap.key}}">
                   <a href="/#/mindmap/{{mindmap.key}}">
                     <paper-icon-button icon="visibility"></paper-icon-button>
                   </a>
-                  <paper-icon-button icon="file-download"></paper-icon-button>
-                  <paper-icon-button icon="create"></paper-icon-button>
-                  <paper-icon-button icon="delete"></paper-icon-button>
+                  <paper-icon-button icon="file-download" on-tap="{{download}}"></paper-icon-button>
+                  <paper-icon-button icon="create" on-tap="{{modify}}"></paper-icon-button>
+                  <paper-icon-button icon="delete" on-tap="{{delete}}"></paper-icon-button>
                 </div>
               </core-collapse>
             </paper-shadow>

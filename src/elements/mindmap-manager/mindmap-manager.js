@@ -187,13 +187,20 @@
       db.mm.setItem(mindmap.key, mindmap.data);
       console.log(metadata);
     },
-    clearAll() {
-      db.meta.clear();
-      db.mm.clear();
-      db.res.clear();
-      resourceKeys.clear();
-      while (metadata.length > 0) {
-        metadata.pop();
+    clear(key) {
+      if (key) {
+        db.meta.removeItem(key);
+        db.mm.removeItem(key);
+        let [meta] = metadata.filter(m => m.key === key);
+        metadata.splice(metadata.indexOf(meta), 1);
+      } else {
+        db.meta.clear();
+        db.mm.clear();
+        db.res.clear();
+        resourceKeys.clear();
+        while (metadata.length > 0) {
+          metadata.pop();
+        }
       }
     }
   });
