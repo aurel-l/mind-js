@@ -25,23 +25,30 @@
 
 
 
+        var {width, height} = this.$.svg.getBoundingClientRect();
+
         function tick() {
-          link.attr('x1', function(d) { return d.source.x; })
-              .attr('y1', function(d) { return d.source.y; })
-              .attr('x2', function(d) { return d.target.x; })
-              .attr('y2', function(d) { return d.target.y; });
+          node
+            .attr('cx', d => d.x = Math.max(5, Math.min(width - 5, d.x)))
+            .attr('cy', d => d.y = Math.max(5, Math.min(height - 5, d.y)));
+
+          link
+            .attr('x1', function(d) { return d.source.x; })
+            .attr('y1', function(d) { return d.source.y; })
+            .attr('x2', function(d) { return d.target.x; })
+            .attr('y2', function(d) { return d.target.y; });
 
           node.attr('transform', d => `translate(${d.x}, ${d.y})`);
         }
 
 
         //var force = d3.layout.force()
-        var {width, height} = this.$.svg.getBoundingClientRect();
         var force = d3.layout.force()
-            .charge(d => (d.children ? d.children.length + 1 : 1) * -300)
-            .linkDistance(d => (d.children ? d.children.length + 1 : 1) * 3)
-            .size([width, height])
-            .on('tick', tick);
+          .gravity(0.01)
+          .charge(d => (d.children ? d.children.length + 1 : 1) * -300)
+          .linkDistance(d => (d.children ? d.children.length + 1 : 1) * 3)
+          .size([width, height])
+          .on('tick', tick);
 
 
 
@@ -50,11 +57,11 @@
           let hue = CoreStyle.g.theme.hue;
           if (d.fixed) {
             //root
-            return d3.hsl((hue + 128) % 256, 0.8, 0.4);
+            return d3.hsl((hue + 106) % 256, 0.8, 0.4);
           }
           if (!d.children) {
             //leaf
-            return d3.hsl((hue + 64) % 256, 0.5, 0.4);
+            return d3.hsl((hue + 150) % 256, 0.5, 0.4);
           }
           if (d._children) {
             //node with hidden children
@@ -206,6 +213,7 @@
         g.append('text')
           .attr('dx', d => Math.sqrt((d.children ? d.children.length + 1 : 1) * 40))
           .text(d => d.title)
+          .style('fill', color)
           .on('click', clickContent);
 
       }
