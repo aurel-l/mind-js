@@ -1,4 +1,5 @@
 /* global d3: false */
+/* global CoreStyle: false */
 (function() {
   'use strict';
   let manager, currentMindmap, currentUpdate;
@@ -46,8 +47,22 @@
 
         // Color leaf nodes orange, and packages white or blue.
         function color(d) {
-          if(d.fixed) {return '#F73A3A';}
-          else {return d._children ? '#3182bd' : d.children ? '#c6dbef' :'#fd8d3c';}
+          let hue = CoreStyle.g.theme.hue;
+          if (d.fixed) {
+            //root
+            return d3.hsl((hue + 128) % 256, 0.8, 0.4);
+          }
+          if (!d.children) {
+            //leaf
+            return d3.hsl((hue + 64) % 256, 0.5, 0.4);
+          }
+          if (d._children) {
+            //node with hidden children
+            return d3.hsl(hue, 0.5, 0.4);
+          } else {
+            //node with visible children
+            return d3.hsl(hue, 0.8, 0.4);
+          }
         }
 
         // Toggle children on click.
@@ -189,8 +204,6 @@
           .on('click', click);
 
         g.append('text')
-          //.attr('x', d => d.x)
-          //.attr('y', d => d.y)
           .attr('dx', d => Math.sqrt((d.children ? d.children.length + 1 : 1) * 40))
           .text(d => d.title)
           .on('click', clickContent);

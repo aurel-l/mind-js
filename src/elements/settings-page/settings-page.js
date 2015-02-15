@@ -1,3 +1,4 @@
+/* global CoreStyle: false */
 (function() {
   'use strict';
   let manager;
@@ -8,10 +9,10 @@
     //defaults
     settings: {
       general: {
-        text1: 'default'
+        hue: 200
       },
       display: {
-        depth: 2
+        depth: 10
       }
     },
     toggle() {
@@ -19,6 +20,13 @@
     },
     clearAll() {
       manager.clearAll();
+    },
+    backToDefaults() {
+      localStorage.clear();
+      location.reload();
+    },
+    hueChanged(_, __, g) {
+      CoreStyle.g.theme.hue = g.immediateValue;
     }
   });
 })();

@@ -22,18 +22,14 @@
         <paper-shadow class="card">
           <h1>General Settings</h1>
           <div layout vertical>
-            Test setting 1
-            <paper-input label="Text input" value="{{settings.general.text1}}" floatinglabel></paper-input>
-            <core-localstorage name="settings.general.text1" value="{{settings.general.text1}}"></core-localstorage>
-          </div>
-          <div layout vertical>
-            Test setting 2
-            <paper-input label="Text input" floatinglabel></paper-input>
+            Theme hue
+            <paper-slider id="hue-slider" value="{{settings.general.hue}}" on-immediate-value-change="{{hueChanged}}" min="0" max="255"></paper-slider>
+            <core-localstorage name="settings.general.hue" value="{{settings.general.hue}}"></core-localstorage>
           </div>
           <core-collapse opened="{{advanced}}">
             <div layout vertical>
-              Hidden test setting 3
-              <paper-input label="Hidden input" floatinglabel></paper-input>
+              advanced setting
+              <paper-input disabled label="disabled input" floatinglabel></paper-input>
             </div>
           </core-collapse>
         </paper-shadow>
@@ -55,6 +51,10 @@
                 <paper-button dismissive>Cancel</paper-button>
                 <paper-button affirmative id="create" on-tap="{{clearAll}}">Clear all</paper-button>
               </paper-action-dialog>
+            </paper-button>
+          </div><div layout vertical>
+            <paper-button noink raised on-tap="{{backToDefaults}}">
+              Go back to default settings
             </paper-button>
           </div>
         </paper-shadow>
