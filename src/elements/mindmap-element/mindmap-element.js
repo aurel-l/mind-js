@@ -57,11 +57,11 @@
           let hue = CoreStyle.g.theme.hue;
           if (d.fixed) {
             //root
-            return d3.hsl((hue + 106) % 256, 0.8, 0.4);
+            return d3.hsl((hue + 160) % 360, 0.8, 0.4);
           }
           if (!d.children) {
             //leaf
-            return d3.hsl((hue + 150) % 256, 0.5, 0.4);
+            return d3.hsl((hue + 200) % 360, 0.5, 0.4);
           }
           if (d._children) {
             //node with hidden children
