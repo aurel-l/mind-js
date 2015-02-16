@@ -9,7 +9,7 @@
     "children" : [
       {
       "title" : "node 1",
-      "content" : {"data" : "content of node 1", "typeContent" : "image"},
+      "content" : {"data" : "content of node 1", "typeContent" : "text"},
       "children" : [
         {
         "title" : "node 1.1",
@@ -25,11 +25,15 @@
           },
           {
           "title" : "video",
-          "content" : {"data" : "http://tinyvid.tv/file/2ii0jn462t5ow.ogg", "typeContent" : "url"}
+          "content" : {"data" : "http://upload.wikimedia.org/wikipedia/commons/transcoded/7/75/Big_Buck_Bunny_Trailer_400p.ogg/Big_Buck_Bunny_Trailer_400p.ogg.360p.webm", "typeContent" : "url"}
           },
           {
           "title" : "image",
           "content" : {"data" : "http://upload.wikimedia.org/wikipedia/commons/2/2d/DSCOVR_rendering_(transparent_bg).png", "typeContent" : "url"}
+          },
+          {
+          "title" : "image animées",
+          "content" : {"data" : "http://cdn.nyanit.com/nyan2.gif", "typeContent" : "url"}
           },
           {
           "title" : "url",
