@@ -16,6 +16,7 @@
         <core-selector id="mindmap-list" flex selected="-1" selectedIndex="{{mindmapIndex}}" cross-fade>
           <template repeat="{{mindmap, i in list}}">
             <paper-shadow layout vertical class="card">
+              <paper-ripple fit></paper-ripple>
               <h1>{{mindmap.meta.name}}</h1>
               <core-collapse opened="{{mindmapIndex === i}}">
                 <div>

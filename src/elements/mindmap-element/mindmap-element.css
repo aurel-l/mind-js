@@ -9,8 +9,22 @@ svg {
   stroke-width: 1px;
 }
 
+.node circle {
+  transition: transform 0.2s;
+}
+
+.node:hover circle {
+  transform: scale(1.5);
+}
+
+.node:hover text {
+  font-size: 30px;
+}
+
 .node text {
   stroke-width: 0.5px;
+  user-select: none;
+  transition: font-size 0.2s;
 }
 
 .link {
