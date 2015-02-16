@@ -1,0 +1,52 @@
+{
+  "name" : "example mindmap",
+  "root" : {
+    "title" : "root node",
+    "content" : {
+      "data" : "content of the node root",
+      "typeContent" : "text"
+    },
+    "children" : [
+      {
+      "title" : "node 1",
+      "content" : {"data" : "content of node 1", "typeContent" : "text"},
+      "children" : [
+        {
+        "title" : "node 1.1",
+        "content" : {"data" : "content of node 1.1", "typeContent" : "text"}
+        },
+        {
+        "title" : "node 1.2 urls",
+        "content" : {"data" : "url nodes", "typeContent" : "text"},
+        "children" : [
+          {
+          "title" : "audio",
+          "content" : {"data" : "http://soundbible.com/mp3/Rudy_rooster_crowing-Shelley-1948282641.mp3", "typeContent" : "url"}
+          },
+          {
+          "title" : "video",
+          "content" : {"data" : "http://upload.wikimedia.org/wikipedia/commons/transcoded/7/75/Big_Buck_Bunny_Trailer_400p.ogg/Big_Buck_Bunny_Trailer_400p.ogg.360p.webm", "typeContent" : "url"}
+          },
+          {
+          "title" : "image",
+          "content" : {"data" : "http://upload.wikimedia.org/wikipedia/commons/2/2d/DSCOVR_rendering_(transparent_bg).png", "typeContent" : "url"}
+          },
+          {
+          "title" : "image animée",
+          "content" : {"data" : "http://cdn.nyanit.com/nyan2.gif", "typeContent" : "url"}
+          },
+          {
+          "title" : "url",
+          "content" : {"data" : "https://fr.wikipedia.org", "typeContent" : "url"}
+          }
+        ]
+        }
+      ]
+      },
+      {
+      "title" : "node 2",
+      "content" : {"data" : "content of node 2", "typeContent" : "text"}
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+<!doctype html>
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-elements/core-elements.html">
+<link rel="import" href="../../styles/theme.html">
+
+<polymer-element name="scaffold-layout" attributes="selected" noscript>
+  <template>
+    <core-style ref="main"></core-style>
+    <core-scaffold mode="waterfall" drawerWidth="12em">
+      <core-header-panel navigation flex>
+        <core-toolbar>Menu</core-toolbar>
+        <core-menu valueattr="label" selected="{{selected}}">
+          <core-item icon="explore" label="My Mindmaps">
+            <a href="/#/"></a>
+          </core-item>
+          <core-item icon="settings" label="Settings">
+            <a href="/#/settings"></a>
+          </core-item>
+          <core-item icon="help" label="About">
+            <a href="/#/about"></a>
+          </core-item>
+        </core-menu>
+      </core-header-panel>
+      <div tool>
+        <content select=".title"></content>
+      </div>
+      <div>
+        <content></content>
+      </div>
+    </core-scaffold>
+  </template>
+</polymer-element>
