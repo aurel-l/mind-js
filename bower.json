@@ -1,6 +1,6 @@
 {
   "name": "mind-js",
-  "version": "0.0.1",
+  "version": "0.9.0",
   "dependencies": {
     "app-router": "erikringsmuth/app-router#~2.4.0",
     "core-elements": "Polymer/core-elements#~0.5.4",
@@ -11,7 +11,6 @@
     "polymer": "Polymer/polymer#~0.5.4",
     "time-elements": "github/time-elements#~0.4.0",
     "zip.js": "gildas-lormeau/zip.js#*",
-    "regenerator": "~0.4.8",
     "z-schema": "~3.3.3"
   },
   "devDependencies": {

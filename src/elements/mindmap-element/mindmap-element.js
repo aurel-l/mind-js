@@ -11,8 +11,6 @@
       manager.load(this.key).then(mindmap => {
         console.log(mindmap);
         currentMindmap = mindmap;
-        window.mindmap = mindmap;
-//comm a mettre debut
 
         var svg = d3.select(this.$.svg);
 
@@ -90,9 +88,9 @@
 
         // Toggle open content on click.
         let supported = {
-          images: new Set(['png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp', 'apng', 'svg', 'ico']),
-          videos: new Set(['ogg', 'ogv', 'ogm', 'webm', 'mp4']),
-          audios: new Set(['mp3', 'wav'])
+          images: {png: true, jpg: true, jpeg: true, gif: true, bmp: true, webp: true, apng: true, svg: true, ico: true},
+          videos: {ogg: true, ogv: true, ogm: true, webm: true, mp4: true},
+          audios: {mp3: true, wav: true}
         };
         let generateContent = (content, type) => {
           return new Promise((res, rej) => {
@@ -112,16 +110,16 @@
                 a.appendChild(icon);
                 html.appendChild(a);
                 let ext = content.split('.').pop().toLowerCase();
-                if (supported.images.has(ext)) {
+                if (supported.images[ext]) {
                   let img = document.createElement('img');
                   img.src = content;
                   html.appendChild(img);
-                } else if (supported.videos.has(ext)) {
+                } else if (supported.videos[ext]) {
                   let video = document.createElement('video');
                   video.controls = true;
                   video.src = content;
                   html.appendChild(video);
-                } else if (supported.audios.has(ext)) {
+                } else if (supported.audios[ext]) {
                   let audio = document.createElement('audio');
                   audio.controls = true;
                   audio.src = content;

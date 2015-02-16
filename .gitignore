@@ -8,4 +8,5 @@ test/bower_components/
 npm-debug.log
 browsers.json
 .directory
+*~
 

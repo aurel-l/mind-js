@@ -1,9 +1,9 @@
 {
-  "name" : "mindmap",
+  "name" : "example mindmap",
   "root" : {
-    "title" : "node_root",
+    "title" : "root node",
     "content" : {
-      "data" : "content of node root",
+      "data" : "content of the node root",
       "typeContent" : "text"
     },
     "children" : [
@@ -32,7 +32,7 @@
           "content" : {"data" : "http://upload.wikimedia.org/wikipedia/commons/2/2d/DSCOVR_rendering_(transparent_bg).png", "typeContent" : "url"}
           },
           {
-          "title" : "image animées",
+          "title" : "image animée",
           "content" : {"data" : "http://cdn.nyanit.com/nyan2.gif", "typeContent" : "url"}
           },
           {
