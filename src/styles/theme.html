@@ -21,13 +21,17 @@
     background: hsl({{g.theme.hue}}, 80%, 40%);
   }
 
+  paper-button, paper-icon-button {
+    margin: 0.4em 0;
+  }
+
   core-item[active] {
     background: rgba(0, 0, 0, 0.1);
   }
 
   core-item, paper-icon-button,
   paper-toggle-button::shadow .toggle-ink,
-  paper-ripple {
+  paper-ripple, a {
     color: hsl({{g.theme.hue}}, 100%, 30%);
   }
 

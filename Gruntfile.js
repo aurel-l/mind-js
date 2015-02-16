@@ -20,6 +20,7 @@ module.exports = function (grunt) {
   var browsers = grunt.file.readJSON('browsers.json');
 
   grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
     watch: {
       options: {
         nospawn: true,
@@ -82,15 +83,13 @@ module.exports = function (grunt) {
         }]
       },
       dist: {
-        files: [{
-          expand: true,
-          cwd: 'dist',
-          src: [
-            '**/*.css',
-            '!bower_components/**/*'
-          ],
-          dest: 'dist'
-        }]
+        expand: true,
+        cwd: 'src',
+        src: [
+          '**/*.css',
+          '!bower_components/**/*'
+        ],
+        dest: 'dist/<%= pkg.version %>'
       }
     },
     connect: {
@@ -128,7 +127,7 @@ module.exports = function (grunt) {
         options: {
           middleware: function (connect) {
             return [
-              mountFolder(connect, 'dist')
+              mountFolder(connect, 'dist/<%= pkg.version %>')
             ];
           }
         }
@@ -143,7 +142,7 @@ module.exports = function (grunt) {
       };
     }),
     clean: {
-      dist: ['.tmp', 'dist/*'],
+      dist: ['.tmp', 'dist/<%= pkg.version %>'],
       server: '.tmp'
     },
     jshint: {
@@ -176,14 +175,14 @@ module.exports = function (grunt) {
     useminPrepare: {
       html: 'src/index.html',
       options: {
-        dest: 'dist'
+        dest: 'dist/<%= pkg.version %>'
       }
     },
     usemin: {
-      html: ['dist/{,*/}*.html'],
-      css: ['dist/styles/{,*/}*.css'],
+      html: ['dist/<%= pkg.version %>/{,*/}*.html'],
+      css: ['dist/<%= pkg.version %>/styles/{,*/}*.css'],
       options: {
-        dirs: ['dist'],
+        dirs: ['dist/<%= pkg.version %>'],
         blockReplacements: {
           vulcanized: function (block) {
             return '<link rel="import" href="' + block.dest + '">';
@@ -191,45 +190,18 @@ module.exports = function (grunt) {
         }
       }
     },
-    vulcanize: {
+    /*vulcanize: {
       default: {
         options: {
           strip: true
         },
         files: {
           'dist/elements/elements.vulcanized.html': [
-            'dist/elements/elements.html'
+            'dist/<%= pkg.version %>/elements/elements.html'
           ]
         }
       }
-    },
-    imagemin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: 'src/images',
-          src: '{,*/}*.{png,jpg,jpeg}',
-          dest: 'dist/images'
-        }]
-      }
-    },
-    cssmin: {
-      main: {
-        files: {
-          'dist/styles/main.css': [
-            '.tmp/concat/styles/{,*/}*.css'
-          ]
-        }
-      },
-      elements: {
-        files: [{
-          expand: true,
-          cwd: '.tmp/elements',
-          src: '{,*/}*.css',
-          dest: 'dist/elements'
-        }]
-      }
-    },
+    },*/
     minifyHtml: {
       options: {
         quotes: true,
@@ -238,9 +210,9 @@ module.exports = function (grunt) {
       app: {
         files: [{
           expand: true,
-          cwd: 'dist',
+          cwd: 'dist/<%= pkg.version %>',
           src: '*.html',
-          dest: 'dist'
+          dest: 'dist/<%= pkg.version %>'
         }]
       }
     },
@@ -253,7 +225,7 @@ module.exports = function (grunt) {
             '**/*.js',
             '!bower_components/**/*'
           ],
-          dest: 'dist'
+          dest: 'dist/<%= pkg.version %>'
         }]
       }
     },
@@ -263,17 +235,26 @@ module.exports = function (grunt) {
           expand: true,
           dot: true,
           cwd: 'src',
-          dest: 'dist',
+          dest: 'dist/<%= pkg.version %>',
           src: [
             '*.{ico,txt}',
             '*.html',
+            'styles/*.html',
             'elements/**',
+            'examples/**',
             '!elements/**/*.css',
             'images/{,*/}*.{webp,gif}',
             'bower_components/**'
           ]
         }]
       }
+    },
+    'gh-pages': {
+      options: {
+        base: 'dist/<%= pkg.version %>',
+        tag: 'v<%= pkg.version %>'
+      },
+      src: ['**']
     }
   });
 
@@ -282,7 +263,7 @@ module.exports = function (grunt) {
     'htmlhint',
     'jshint',
     'csslint',
-    'autoprefixer',
+    'autoprefixer:dev',
     '6to5',
     'connect:livereload',
     'open',
@@ -294,26 +275,26 @@ module.exports = function (grunt) {
     'htmlhint',
     'jshint',
     'csslint',
-    'autoprefixer',
+    'autoprefixer:dev',
     '6to5',
     'connect:test'
   ]);
 
   grunt.registerTask('build', [
     'clean:dist',
+    'copy:dist',
     'htmlhint',
     'jshint',
     'csslint',
-    'autoprefixer',
+    'autoprefixer:dist',
     'useminPrepare',
-    'imagemin',
     '6to5',
     'uglify',
-    'cssmin',
-    'vulcanize',
     'usemin',
     'minifyHtml'
   ]);
+
+  grunt.registerTask('deploy', ['gh-pages']);
 
   grunt.registerTask('default', ['dev']);
 };

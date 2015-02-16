@@ -1,6 +1,8 @@
 <!doctype html>
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../scaffold-layout/scaffold-layout.html">
+<link rel="import" href="../../bower_components/core-icons/editor-icons.html">
+<link rel="import" href="../../bower_components/core-icons/social-icons.html">
 
 <polymer-element name="about-page" noscript>
   <template>
@@ -11,23 +13,57 @@
       <section cross-fade>
         <paper-shadow class="card">
           <h1>About</h1>
-          <div layout vertical>
-            Mind-js is a web application to create and handle mindmaps.
-            The source code is founded in Github : <a href="https://github.com/aurel-l/mind-js">mind-js</a> 
-          </div>
-          <div layout vertical> 
-            Mind-js has been implemented by 
-            <a href="https://github.com/leaantunes">Léa Antunes</a> 
-            <a href="https://github.com/RaniaAssab">Rania Assab </a>
-            <a href="https://github.com/aurel-l">Aurélien Luciani</a>
-            <a href="https://github.com/PetitNounours">Vincent Lefèvbre</a>
+          <div layout vertical start>
+            mind-js is a web application to create and handle mind maps.
+            The source code is hosted in this GitHub repository
+            <a href="https://github.com/aurel-l/mind-js" target="_blank">
+              <paper-button raised>
+                <core-icon icon="link"></core-icon>
+                &nbsp;mind-js
+              </paper-button>
+            </a>
           </div>
         </paper-shadow>
         <paper-shadow class="card">
           <h1>Examples</h1>
-          <div layout vertical>
-            Here is an example of the import .json file
-            <a href="/examples/example.json">example.json</a> 
+          <div layout vertical start>
+            <p>Here is a JSON file example to be imported as a mind map</p>
+            <a href="/examples/example.json" target="_blank" download>
+              <paper-button raised>
+                <core-icon icon="editor:insert-drive-file"></core-icon>
+                &nbsp;example.json
+              </paper-button>
+            </a>
+          </div>
+        </paper-shadow>
+        <paper-shadow class="card">
+          <h1>Developpers</h1>
+          <div layout vertical start>
+            <p>mind-js has been implemented by</p>
+            <a href="https://github.com/leaantunes" target="_blank">
+              <paper-button raised>
+                <core-icon icon="social:person"></core-icon>
+                &nbsp;Léa Antunes
+              </paper-button>
+            </a>
+            <a href="https://github.com/RaniaAssab" target="_blank">
+              <paper-button raised>
+                <core-icon icon="social:person"></core-icon>
+                &nbsp;Rania Assab
+              </paper-button>
+            </a>
+            <a href="https://github.com/aurel-l" target="_blank">
+              <paper-button raised>
+                <core-icon icon="social:person"></core-icon>
+                &nbsp;Aurélien Luciani
+              </paper-button>
+            </a>
+            <a href="https://github.com/PetitNounours" target="_blank">
+              <paper-button raised>
+                <core-icon icon="social:person"></core-icon>
+                &nbsp;Vincent Lefèvbre
+              </paper-button>
+            </a>
           </div>
         </paper-shadow>
       </section>
