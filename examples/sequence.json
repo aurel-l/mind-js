@@ -1,106 +1,194 @@
 {
-  "name" : "Sequence",
-  "root" : {
-    "title" : "Sequence",
-    "content" : { "data" : "Sequence content", "typeContent" : "text"},
-    "children" : [
+  "name":"Sequence",
+  "root":{
+    "title":"Sequence",
+    "content":{
+      "data":"Sequence content",
+      "typeContent":"text"
+    },
+    "children":[
       {
-      "title" : "Format",
-      "content" : {"data" : "Format content", "typeContent" : "text"},
-      "children" : [
-        {
-        "title" : "Alphabet",
-        "children" : [
-          {"title" : "Proteic"},
-	   {
-	    "title" : "Nucleic",
-	    "children" : [
-	      {"title" : "Unambiguous",
-	      "content" : {"data" : "ATCG", "typeContent" : "text"}
-	      },
-	      {"title" : "Ambiguous"}
-	     ]
+        "title":"Format",
+        "content":{
+          "data":"Format content",
+          "typeContent":"text"
+        },
+        "children":[
+          {
+            "title":"Alphabet",
+            "children":[
+              {
+                "title":"Proteic"
+              },
+              {
+                "title":"Nucleic",
+                "children":[
+                  {
+                    "title":"Unambiguous",
+                    "content":{
+                      "data":"ATCG",
+                      "typeContent":"text"
+                    }
+                  },
+                  {
+                    "title":"Ambiguous"
+                  }
+                ]
+              }
+            ]
           },
+          {
+            "title":"Exemple",
+            "children":[
+              {
+                "title":"Fasta"
+              },
+              {
+                "title":"Uniport/EMBL"
+              },
+              {
+                "title":"PDB"
+              }
+            ]
+          },
+          {
+            "title":"Flat File"
+          }
         ]
+      },
+      {
+        "title":"Molecule",
+        "content":{
+          "data":"Molecule content",
+          "typeContent":"text"
         },
-        {"title" : "Exemple",
-        "children" : [
-          {"title" : "Fasta"},
-	   {"title" : "Uniport/EMBL"},
-	   {"title" : "PDB"}
+        "children":[
+          {
+            "title":"Nucleic Acid",
+            "children":[
+              {
+                "title":"DNA"
+              },
+              {
+                "title":"mRNA"
+              },
+              {
+                "title":"cDNA"
+              }
+            ]
+          },
+          {
+            "title":"Protein",
+            "children":[
+              {
+                "title":"Wikipedia"
+              },
+              {
+                "title":"Video Rasmol"
+              }
+            ]
+          }
         ]
+      },
+      {
+        "title":"Anotations",
+        "content":{
+          "data":"Annotations content",
+          "typeContent":"text"
         },
-        {"title" : "Flat File"}
-      ]
+        "children":[
+          {
+            "title":"DNA"
+          },
+          {
+            "title":"mRNA"
+          },
+          {
+            "title":"cDNA"
+          }
+        ]
       },
       {
-      "title" : "Molecule",
-      "content" : {"data" : "Molecule content", "typeContent" : "text"},
-      "children" : [
-	{"title" : "Nucleic Acid",
-	"children" : [
-	  {"title" : "DNA"},
-	  {"title" : "mRNA"},
-	  {"title" : "cDNA"}
-	]
-	},
-	{"title" : "Protein",
-	"children" : [
-	  {"title" : "Wikipedia"},
-	  {"title" : "Video Rasmol"}
-	]
-	}
-      ]
+        "title":"Explore",
+        "content":{
+          "data":"Explore content",
+          "typeContent":"text"
+        },
+        "children":[
+          {
+            "title":"Alignment"
+          },
+          {
+            "title":"Statistics"
+          },
+          {
+            "title":"Prediction"
+          },
+          {
+            "title":"Comparison"
+          }
+        ]
       },
       {
-      "title" : "Anotations",
-      "content" : {"data" : "Annotations content", "typeContent" : "text"},
-      "children" : [
-	{"title" : "DNA"},
-	{"title" : "mRNA"},
-	{"title" : "cDNA"}
-      ]
+        "title":"Search",
+        "content":{
+          "data":"Search content",
+          "typeContent":"text"
+        },
+        "children":[
+          {
+            "title":"By keywords",
+            "children":[
+              {
+                "title":"Descriptor"
+              },
+              {
+                "title":"Logic Operator"
+              }
+            ]
+          },
+          {
+            "title":"By sequence",
+            "children":[
+              {
+                "title":"BLASTp"
+              },
+              {
+                "title":"BLASTn"
+              },
+              {
+                "title":"BLASTx"
+              },
+              {
+                "title":"tBLASTn"
+              }
+            ]
+          },
+          {
+            "title":"Entrez"
+          }
+        ]
       },
       {
-      "title" : "Explore",
-      "content" : {"data" : "Explore content", "typeContent" : "text"},
-      "children" : [
-	{"title" : "Alignment"},
-	{"title" : "Statistics"},
-	{"title" : "Prediction"},
-	{"title" : "Comparison"}
-      ]
-      },
-      {
-      "title" : "Search",
-      "content" : {"data" : "Search content", "typeContent" : "text"},
-      "children" : [
-	{"title" : "By keywords",
-	  "children" : [
-	    {"title" : "Descriptor"},
-	    {"title" : "Logic Operator"}
-	  ]
-	},
-	{"title" : "By sequence",
-	  "children" : [
-	    {"title" : "BLASTp"},
-	    {"title" : "BLASTn"},
-	    {"title" : "BLASTx"},
-	    {"title" : "tBLASTn"}
-	  ]
-	},
-	{"title" : "Entrez"}
-      ]
-      },
-      {
-      "title" : "Database",
-      "content" : {"data" : "Database content", "typeContent" : "text"},
-      "children" : [
-	{"title" : "Uniprot"},
-	{"title" : "GenBank"},
-	{"title" : "PDB"},
-	{"title" : "OMIM"}
-      ]
+        "title":"Database",
+        "content":{
+          "data":"Database content",
+          "typeContent":"text"
+        },
+        "children":[
+          {
+            "title":"Uniprot"
+          },
+          {
+            "title":"GenBank"
+          },
+          {
+            "title":"PDB"
+          },
+          {
+            "title":"OMIM"
+          }
+        ]
       }
     ]
   }
