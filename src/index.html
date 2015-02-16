@@ -23,28 +23,28 @@
   <template is="auto-binding">
     <mindmap-manager list="{{list}}" active="{{active}}"></mindmap-manager>
     <app-router mode="hash" trailingSlash="ignore" bindRouter core-animated-pages transitions="cross-fade">
-      <app-route path="/">
+      <app-route path="list">
         <template>
           <list-page list="{{router.templateInstance.model.list}}"></list-page>
         </template>
       </app-route>
-      <app-route path="/settings">
+      <app-route path="settings">
         <template>
           <settings-page settings="{{router.templateInstance.model.settings}}"></settings-page>
         </template>
       </app-route>
-      <app-route path="/about" element="about-page"></app-route>
-      <app-route path="/mindmap">
+      <app-route path="about" element="about-page"></app-route>
+      <app-route path="mindmap">
         <template>
           <mindmap-page settings="{{router.templateInstance.model.settings}}"></mindmap-page>
         </template>
       </app-route>
-      <app-route path="/mindmap/:key">
+      <app-route path="mindmap/:key">
         <template>
           <mindmap-page key="{{key}}" list="{{router.templateInstance.model.list}}" settings="{{router.templateInstance.model.settings}}"></mindmap-page>
         </template>
       </app-route>
-      <app-route path="*" redirect="/"></app-route>
+      <app-route path="*" redirect="list"></app-route>
     </app-router>
   </template>
 </body>

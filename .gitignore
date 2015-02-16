@@ -9,4 +9,5 @@ npm-debug.log
 browsers.json
 .directory
 *~
+.grunt
 
