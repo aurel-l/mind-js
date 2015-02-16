@@ -13,28 +13,29 @@
 </head>
 <body>
 
-  <mindmap-manager></mindmap-manager>
+  <mindmap-manager id="manager"></mindmap-manager>
   <script>
-    describe('Element', function() {
-      var el;
+    describe('<mindmap-element>', function() {
+      var el = document.getElementById('manager');
 
-      before(function() {
-        el = document.createElement('mindmap-manager');
-        document.body.appendChild(el);
-      });
-
-      after(function() {
-        document.body.removeChild(el);
-      });
-
-      it('should be registered', function() {
-        expect(el.constructor).to.equal(HTMLElement);
-      })
-
-      it.skip('should expose attributes', function() {
+      it('should expose attributes', function() {
         expect(el).to.have.property('list');
         expect(Array.isArray(el.list)).to.be.true;
       })
+      
+      it('should have methods', function() {
+        expect(el).to.have.property('load');
+        expect(el).to.have.property('clear');
+        expect(el).to.have.property('save');
+        expect(el).to.have.property('create');
+      });
+      
+      it.skip('should load content', function(done) {
+        el.load('key').then(function(returnValue) {
+          expect(returnValue.to.exist);
+          done()
+        });
+      });
     });
   </script>
 
