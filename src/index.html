@@ -17,13 +17,13 @@
   <!-- endbuild-->
 
   <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
-  <link rel="import" href="bower_components/app-router/app-router.html">
   <link rel="import" href="elements/elements.html">
+  <link rel="import" href="bower_components/app-router/app-router.html">
 </head>
 
 <body unresolved>
   <template is="auto-binding">
-    <mindmap-manager list="{{list}}" active="{{active}}"></mindmap-manager>
+    <mindmap-manager list="{{list}}"></mindmap-manager>
     <app-router mode="hash" trailingSlash="ignore" bindRouter core-animated-pages transitions="cross-fade">
       <app-route path="list">
         <template>
