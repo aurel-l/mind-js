@@ -1,0 +1,20 @@
+<!doctype html>
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-elements/core-elements.html">
+<link rel="import" href="../../bower_components/paper-elements/paper-elements.html">
+<link rel="import" href="../scaffold-layout/scaffold-layout.html">
+<link rel="import" href="../../styles/theme.html">
+<link rel="import" href="../mindmap-element/mindmap-element.html">
+
+<polymer-element name="mindmap-page" attributes="key list settings" noscript>
+  <template>
+    <core-style ref="main"></core-style>
+    <scaffold-layout>
+      <div class="title">Mindmap</div>
+
+      <section cross-fade>
+        <mindmap-element fit key="{{key}}" list="{{list}}" settings="{{settings}}"></mindmap-element>
+      </section>
+    </scaffold-layout>
+  </template>
+</polymer-element>

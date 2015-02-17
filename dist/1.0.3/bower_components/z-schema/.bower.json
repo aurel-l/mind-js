@@ -1,0 +1,28 @@
+{
+  "name": "z-schema",
+  "version": "3.3.3",
+  "description": "JSON schema validator",
+  "homepage": "https://github.com/zaggino/z-schema",
+  "authors": [
+    "Martin Zagora <zaggino@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "JSON",
+    "Schema",
+    "Validator"
+  ],
+  "main": "dist/ZSchema-browser-min.js",
+  "moduleType": [
+    "amd"
+  ],
+  "_release": "3.3.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v3.3.3",
+    "commit": "5e976d3fd07b35d1146229ef6a9f3d8b77270910"
+  },
+  "_source": "git://github.com/zaggino/z-schema.git",
+  "_target": "~3.3.3",
+  "_originalSource": "z-schema"
+}
