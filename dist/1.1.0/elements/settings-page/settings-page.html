@@ -1,0 +1,67 @@
+<!doctype html>
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-elements/core-elements.html">
+<link rel="import" href="../../bower_components/paper-elements/paper-elements.html">
+<link rel="import" href="../scaffold-layout/scaffold-layout.html">
+<link rel="import" href="../../styles/theme.html">
+
+<polymer-element name="settings-page" attributes="settings">
+  <template>
+    <core-style ref="main"></core-style>
+    <scaffold-layout selected="Settings">
+      <div class="title">Settings</div>
+
+      <section cross-fade>
+        <paper-shadow class="card">
+          <h1>Advanced Settings</h1>
+          <div layout vertical>
+            <div layout horizontal center>
+              <div flex>Advanced settings {{advanced ? 'enabled' : 'disabled'}}</div>
+              <paper-toggle-button checked="{{advanced}}"></paper-toggle-button>
+            </div>
+          </div>
+        </paper-shadow>
+        <paper-shadow class="card">
+          <h1>General Settings</h1>
+          <div layout vertical>
+            Theme hue
+            <paper-slider id="hue-slider" value="{{settings.general.hue}}" on-immediate-value-change="{{hueChanged}}" min="0" max="255"></paper-slider>
+            <core-localstorage name="settings.general.hue" value="{{settings.general.hue}}"></core-localstorage>
+          </div>
+          <core-collapse opened="{{advanced}}">
+            <div layout vertical>
+              advanced setting
+              <paper-input disabled label="disabled input" floatinglabel></paper-input>
+            </div>
+          </core-collapse>
+        </paper-shadow>
+        <paper-shadow class="card">
+          <h1>Display Settings</h1>
+          <div layout vertical>
+            Maximum depth of the displayed mindmap
+            <paper-slider value="{{settings.display.depth}}" min="0" max="20" step="1" snaps pin editable></paper-slider>
+            <core-localstorage name="settings.display.depth" value="{{settings.display.depth}}"></core-localstorage>
+          </div>
+        </paper-shadow>
+        <paper-shadow class="card">
+          <h1>Storage Settings</h1>
+          <div layout vertical>
+            <paper-button raised on-tap="{{toggle}}">
+              Clear cached data
+              <paper-action-dialog backdrop id="clear-dialog" transition="core-transition-center">
+                <p>Are you sure you want to clear all cached data?</p>
+                <paper-button dismissive>Cancel</paper-button>
+                <paper-button affirmative id="create" on-tap="{{clearAll}}">Clear all</paper-button>
+              </paper-action-dialog>
+            </paper-button>
+          </div><div layout vertical>
+            <paper-button raised on-tap="{{backToDefaults}}">
+              Go back to default settings
+            </paper-button>
+          </div>
+        </paper-shadow>
+      </section>
+    </scaffold-layout>
+  </template>
+  <script src="settings-page.js"></script>
+</polymer-element>

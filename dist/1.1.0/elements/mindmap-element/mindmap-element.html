@@ -1,0 +1,24 @@
+<!doctype html>
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-elements/core-elements.html">
+<link rel="import" href="../../bower_components/paper-elements/paper-elements.html">
+<link rel="import" href="../../styles/theme.html">
+<script src="../../bower_components/d3/d3.js"></script>
+
+<polymer-element name="mindmap-element" attributes="key list settings">
+  <template>
+    <core-style ref="main"></core-style>
+    <link rel="stylesheet" href="mindmap-element.css">
+    <section fit>
+      <svg id="svg"></svg>
+    </section>
+    <paper-action-dialog heading="" id="content" transition="core-transition-center" backdrop>
+      <p></p>
+      <core-style ref="main"></core-style>
+      <paper-icon-button dismissive icon="delete" on-tap="{{delete}}"></paper-icon-button>
+      <paper-icon-button affirmative icon="create" on-tap="{{modify}}"></paper-icon-button>
+      <paper-icon-button affirmative icon="add-circle" on-tap="{{addChild}}"></paper-icon-button>
+    </paper-action-dialog>
+  </template>
+  <script src="mindmap-element.js"></script>
+</polymer-element>
