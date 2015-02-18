@@ -1,6 +1,6 @@
 body {
-  font-family: 'Roboto', Helvetica, Arial, sans-serif;
   color: #333;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
 }
 
 core-drawer-panel:not([narrow]) #navicon {
@@ -20,26 +20,8 @@ core-selector > paper-shadow {
   padding: 1em;
 }
 
-/*core-toolbar, paper-fab {
-  background: #0c98c6;
-  color: #fafafa
-}
-
-.content paper-shadow {
-  margin: 0.5em;
-  padding: 0.5em;
-}
-
-.content paper-icon-button, paper-icon-button::shadow #ripple, paper-button::shadow #ripple {
-  color: #0c98c6;
-}
-
-core-collapse > div {
-  margin: 0.2em;
-}*/
-
 paper-fab {
-  position: fixed;
   bottom: 1.5em;
+  position: fixed;
   right: 1.5em;
 }
