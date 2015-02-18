@@ -11,6 +11,7 @@
     "polymer": "Polymer/polymer#~0.5.4",
     "time-elements": "github/time-elements#~0.4.0",
     "zip.js": "gildas-lormeau/zip.js#*",
+    "cache-polyfill": "coonsta/cache-polyfill#*",
     "z-schema": "~3.3.3"
   },
   "devDependencies": {
