@@ -1,0 +1,1 @@
+"use strict";"serviceWorker"in navigator&&navigator.serviceWorker.register("service-worker.js").then(function(a){console.log("Successful service worker registration with scope: ",a.scope)})["catch"](function(a){console.warn("Service worker registration failed, no offline mode. ",a)});
