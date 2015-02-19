@@ -1,0 +1,76 @@
+{
+  "name" : "mind-js",
+  "root" : {
+    "title" : "mind-js",
+    "content" : {
+      "data" : "https://aurel-l.github.io/mind-js",
+      "typeContent" : "url"
+    },
+    "children" : [
+      {
+      "title" : "Gestion du projet",
+      "content" : {"data" : "", "typeContent" : "text"},
+      "children" : [
+        {
+        "title" : "Langages et technologies",
+        "content" : {"data" : "Langages de programmation utilisés\nTechnologies importantes", "typeContent" : "text"}
+        },
+        {
+        "title" : "Bibliothèques",
+        "content" : {"data" : "node.js\nGestion du workflow\nGrunt et modules", "typeContent" : "text"}
+        },
+        {
+        "title" : "Workflow",
+        "content" : {"data" : "install\nupdate\nstart\ntest\nbuild\ndeploy", "typeContent" : "text"}
+        }
+      ]
+      },
+      {
+      "title" : "Gestion de mind map",
+      "content" : {"data" : "", "typeContent" : "text"},
+      "children" : [
+        {
+        "title" : "Base de données",
+        "content" : {"data" : "Bibliothèque localForage", "typeContent" : "text"}
+        },
+        {
+        "title" : "Elément et routeur",
+        "content" : {"data" : "Bibliothèque Polymer\néléments WebComponents\nrouteur : app-router", "typeContent" : "text"}
+        },
+        {
+        "title" : "Mind map manager",
+        "content" : {"data" : "Gestionnaire de cartes heuristiques", "typeContent" : "text"}
+        }
+      ]
+      },
+      {
+      "title" : "Fichiers",
+      "content" : {"data" : "", "typeContent" : "text"},
+      "children" : [
+        {
+        "title" : "Type de fichiers",
+        "content" : {"data" : "format JSON\nvalidé avec un JSON schema", "typeContent" : "text"}
+        },
+        {
+        "title" : "Validation",
+        "content" : {"data" : "Structure d'une carte heuristique", "typeContent" : "text"}
+        }
+      ]
+      },
+      {
+      "title" : "Affichage",
+      "content" : {"data" : "", "typeContent" : "text"},
+      "children" : [
+        {
+        "title" : "Affichage général",
+        "content" : {"data" : "Affichage moderne\nTransitions et animations\nInteraction clavier/souris ou tactile", "typeContent" : "text"}
+        },
+        {
+        "title" : "Affichage d'une mind map",
+        "content" : {"data" : "Algorithmes d'affichage\nForce based\nCouleurs\nInteractions avec les nœuds", "typeContent" : "text"}
+        }
+      ]
+      }
+    ]
+  }
+}
