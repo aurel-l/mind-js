@@ -19,7 +19,7 @@
       this.$['clear-dialog'].toggle();
     },
     clearAll() {
-      manager.clearAll();
+      manager.clear();
     },
     backToDefaults() {
       localStorage.clear();
